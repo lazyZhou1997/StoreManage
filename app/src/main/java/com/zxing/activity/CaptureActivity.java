@@ -1,8 +1,5 @@
 package com.zxing.activity;
 
-import java.io.IOException;
-import java.util.Vector;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
@@ -23,11 +20,16 @@ import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.msd.business.R;
 import com.zxing.camera.CameraManager;
 import com.zxing.decoding.CaptureActivityHandler;
 import com.zxing.decoding.InactivityTimer;
 import com.zxing.view.ViewfinderView;
+
+import java.io.IOException;
+import java.util.Vector;
+
+import scu.edu.storemanage.R;
+
 /**
  * Initial the camera
  * @author Ryan.Tang

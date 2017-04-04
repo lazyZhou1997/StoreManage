@@ -1,4 +1,4 @@
-package scu.edu.storemanage;
+package scu.edu.storemanage.database;
 
 /**
  * Created by Admin on 2017/4/4.
