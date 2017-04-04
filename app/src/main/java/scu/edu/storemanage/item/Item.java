@@ -185,7 +185,7 @@ public class Item {
      * 计算该商品的盈利
      * @return 商品盈利=单个商品利润×商品数量
      */
-    public double countProfit(void){
+    public double countProfit(){
         //（售价-进价）×12
         return (sellingPrice-costPrice)*quantity;
     }
