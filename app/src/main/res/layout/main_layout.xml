@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg"
+    android:weightSum="1">
+
+    <!--Sign In编制-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="50sp"
+        android:paddingTop="70dp"
+        android:paddingBottom="100dp"
+        android:textColor="@color/white"
+        android:text="@string/sign_in"/>
+
+    <!--帐号输入框-->
+    <EditText
+        android:id="@+id/account_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_margin="15dp"
+        android:inputType="phone"
+        android:background="@mipmap/input_bg"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:hint="@string/username"
+        android:paddingLeft="15dp" />
+
+    <!--密码输入框-->
+    <EditText
+        android:id="@+id/password_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_margin="15dp"
+        android:inputType="textPassword"
+        android:background="@mipmap/input_bg"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:hint="@string/password"
+        android:paddingLeft="15dp" />
+
+    <!--水平布局，放入密码选取框-->
+    <LinearLayout
+        android:id="@+id/linear_check"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:text="@string/remember_account"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <!--登录按钮-->
+    <Button
+        android:id="@+id/log_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@color/login_button"
+        android:text="@string/login_button"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+</LinearLayout>

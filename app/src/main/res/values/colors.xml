@@ -39,4 +39,5 @@
     <color name="send">#545e6a</color>
     <color name="black">#000</color>
     <color name="blue">#055EDD</color>
+    <color name="login_button">#ffbf25</color>
 </resources>

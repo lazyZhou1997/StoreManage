@@ -18,9 +18,12 @@
         android:theme="@style/AppTheme">
 
         <activity android:name="com.zxing.activity.CaptureActivity" >
+        </activity>
+
+        <activity android:name="scu.edu.storemanage.activity.MainActivity">
             <intent-filter>
-                <action android:name = "android.intent.action.MAIN"/>
-                <category android:name = "android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 

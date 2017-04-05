@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">StoreManage</string>
+    <!--登录界面字符串-->
+    <string name="sign_in">Sign In</string>
+    <string name="login_button">Login</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="remember_account">remember\naccount</string>
+    <string name="remember_password">remember passwords</string>
 </resources>

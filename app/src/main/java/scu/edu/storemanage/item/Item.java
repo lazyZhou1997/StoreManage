@@ -22,6 +22,30 @@ public class Item {
     //方法
 
     /**
+     *传入除商品ID以外的参数构建一个Item对象
+     * @param barCode
+     * @param name
+     * @param purchaseDate
+     * @param productDate
+     * @param qualityDate
+     * @param costPrice
+     * @param sellingPrice
+     * @param quantity
+     */
+    public Item(String barCode,String name,Date purchaseDate,Date productDate,int qualityDate,
+                double costPrice,double sellingPrice,double quantity){
+
+        this.barCode = barCode;
+        this.name = name;
+        this.purchaseDate = purchaseDate;
+        this.productDate = productDate;
+        this.qualityDate = qualityDate;
+        this.costPrice = costPrice;
+        this.sellingPrice = sellingPrice;
+        this.quantity = quantity;
+    }
+
+    /**
      * 获得商品ID
      * @return 商品ID
      */
@@ -165,6 +189,11 @@ public class Item {
         this.quantity = quantity;
     }
 
+    /**
+     * 通过比较商品的条形码判断商品是否相同
+     * @param obj 要与本商品比较的商品
+     * @return 相同为true，不同为false
+     */
     @Override
     public boolean equals(Object obj) {
 

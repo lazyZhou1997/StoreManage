@@ -59,6 +59,8 @@ public class CaptureActivity extends Activity implements Callback {
 		cancelScanButton = (Button) this.findViewById(R.id.btn_cancel_scan);
 		hasSurface = false;
 		inactivityTimer = new InactivityTimer(this);
+
+
 	}
 
 	@Override

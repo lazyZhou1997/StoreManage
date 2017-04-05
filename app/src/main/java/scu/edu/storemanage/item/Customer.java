@@ -12,6 +12,21 @@ public class Customer {
     private long integral;//顾客积分
 
     /**
+     * 通过传入除顾客ID之外的参数来建立一个顾客对象
+     * @param name 顾客名字
+     * @param telNumber 顾客电话号码
+     * @param address //顾客地址
+     * @param integral //顾客积分
+     */
+    public Customer(String name,String telNumber,String address,long integral){
+
+        this.name = name;
+        this.telNumber = telNumber;
+        this.address = address;
+        this.integral = integral;
+    }
+
+    /**
      * 获得客户的ID
      *
      * @return 客户ID
