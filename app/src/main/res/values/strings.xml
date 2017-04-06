@@ -1,10 +1,12 @@
 <resources>
-    <string name="app_name">StoreManage</string>
+    <string name="app_name">商店管理系统</string>
     <!--登录界面字符串-->
-    <string name="sign_in">Sign In</string>
-    <string name="login_button">Login</string>
-    <string name="username">username</string>
-    <string name="password">password</string>
-    <string name="remember_account">remember\naccount</string>
-    <string name="remember_password">remember passwords</string>
+    <string name="sign_in">欢迎使用</string>
+    <string name="login_button">登  录</string>
+    <string name="username">账户</string>
+    <string name="password">密码</string>
+    <string name="remember_account">记住账户</string>
+    <string name="remember_password">记住密码</string>
+    <string name="sign_inin">注册帐号</string>
+    <string name="forget_password">忘记密码</string>
 </resources>

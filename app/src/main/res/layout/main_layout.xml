@@ -8,14 +8,15 @@
 
     <!--Sign In编制-->
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="50sp"
-        android:paddingTop="70dp"
-        android:paddingBottom="100dp"
+        android:paddingBottom="80dp"
+        android:paddingTop="50dp"
+        android:text="@string/sign_in"
         android:textColor="@color/white"
-        android:text="@string/sign_in"/>
+        android:textSize="50sp" />
 
     <!--帐号输入框-->
     <EditText
@@ -53,12 +54,22 @@
         android:orientation="horizontal"
         android:weightSum="1">
         <CheckBox
+            android:id="@+id/rem_account_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="25dp"
             android:text="@string/remember_account"
             android:textColor="@color/white"/>
+        <CheckBox
+            android:id="@+id/rem_password_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:text="@string/remember_password"
+            android:textColor="@color/white"
+            android:shadowColor="@color/white"/>
     </LinearLayout>
 
     <!--登录按钮-->
@@ -71,5 +82,32 @@
         android:text="@string/login_button"
         android:textColor="@color/white"
         android:textSize="20sp" />
+
+    <!--注册和忘记密码-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--注册-->
+        <Button
+            android:id="@+id/sign_button"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_inin"
+            android:background="@color/transparent"
+            android:textColor="@color/white"
+            android:paddingLeft="25dp"/>
+
+        <!--忘记密码-->
+        <Button
+            android:id="@+id/forget_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forget_password"
+            android:background="@color/transparent"
+            android:textColor="@color/white"
+            android:paddingRight="25dp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 
 </LinearLayout>
