@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent signIntent = new Intent(MainActivity.this,SignInActivity.class);
-                startActivity(signIntent);
+                startActivityForResult(signIntent,1);
             }
         });
     }

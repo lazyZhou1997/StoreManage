@@ -9,4 +9,6 @@
     <string name="remember_password">记住密码</string>
     <string name="sign_inin">注册帐号</string>
     <string name="forget_password">忘记密码</string>
+    <!--注册界面-->
+    <string name="phone_number">电话</string>
 </resources>
