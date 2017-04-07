@@ -28,7 +28,7 @@ public class UserDatabase {
      * @param account 帐号
      * @return user对象
      */
-    private User searchByAccount(String account){
+    public User searchByAccount(String account){
         //查询数据
         Cursor cursor = database.query(MySQLiteOpenHelper.USER_TABLE,null,"account = ?",new String[]{account},null,
                 null,null);
