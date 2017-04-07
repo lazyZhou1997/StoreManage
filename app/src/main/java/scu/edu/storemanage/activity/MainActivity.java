@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main_layout);
 
         //拿到所有控件
-        initUICompoment();
+        initUIComponent();
 
         sign_in_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
     /**
      * 拿到所有控件
      */
-    private void initUICompoment() {
+    private void initUIComponent() {
 
         //编辑框
         account_edit = (EditText) findViewById(R.id.account_edit);
