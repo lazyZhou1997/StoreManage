@@ -40,4 +40,5 @@
     <color name="black">#000</color>
     <color name="blue">#055EDD</color>
     <color name="login_button">#ffbf25</color>
+    <color name="main_function_big_button">#e56a5b</color>
 </resources>

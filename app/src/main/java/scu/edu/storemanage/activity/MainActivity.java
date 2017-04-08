@@ -154,6 +154,10 @@ public class MainActivity extends Activity {
             editor.commit();
 
             Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+            //跳转界面
+            Intent intentFunction =new Intent(MainActivity.this,MainFunctionActivity.class);
+            startActivity(intentFunction);
+            finish();
         }else {
             //登录失败
             Toast.makeText(MainActivity.this, "账户或密码错误", Toast.LENGTH_SHORT).show();
