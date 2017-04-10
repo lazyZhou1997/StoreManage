@@ -156,6 +156,12 @@ public class MainActivity extends Activity {
             Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
             //跳转界面
             Intent intentFunction =new Intent(MainActivity.this,MainFunctionActivity.class);
+
+            //携带信息
+            intentFunction.putExtra("account",user.getAccount());
+            intentFunction.putExtra("password",user.getPassword());
+            intentFunction.putExtra("phoneNumber",user.getPhonenumber());
+
             startActivity(intentFunction);
             finish();
         }else {

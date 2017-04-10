@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import scu.edu.storemanage.R;
+import scu.edu.storemanage.item.User;
 
 /**
  * Created by 周秦春 on 2017/4/8.
@@ -27,6 +28,7 @@ public class MainFunctionActivity extends Activity {
     private ImageButton member_button;//会员
 
     //登录的用户信息
+    private User user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,5 +63,20 @@ public class MainFunctionActivity extends Activity {
         order_button = (ImageButton)findViewById(R.id.order_function_button);
         main_page_button = (ImageButton)findViewById(R.id.main_page_function_button);
         member_button = (ImageButton)findViewById(R.id.member_function_button);
+    }
+
+    /**
+     * 获取登录的用户信息
+     * @param intent 保存有用户信息的 意图
+     */
+    private void getUserInfo(Intent intent){
+
+        String account = intent.getStringExtra("account");
+        String password = intent.getStringExtra("password");
+        String phoneNumber = intent.getStringExtra("phoneNumber");
+
+        //组装用户信息
+        user = new User(account,password,phoneNumber);
+        return;
     }
 }
