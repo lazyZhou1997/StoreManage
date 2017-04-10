@@ -32,8 +32,19 @@
         </activity>
 
         <!--主功能界面-->
-        <activity android:name=".activity.MainFunctionActivity">
+        <activity android:name=".activity.MainFunctionActivity"
+            android:launchMode="singleTask">
         </activity>
+
+        <!--录入商品界面-->
+        <activity android:name=".activity.InputItemActivity">
+        </activity>
+
+        <!--售卖商品界面-->
+        <activity android:name=".activity.SellItemActivity">
+        </activity>
+
+
     </application>
 
 </manifest>

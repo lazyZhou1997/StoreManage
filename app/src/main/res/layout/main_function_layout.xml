@@ -9,6 +9,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
     </LinearLayout>
+
     <TextView
         android:id="@+id/broad_cast"
         android:layout_width="match_parent"
@@ -22,42 +23,87 @@
         android:layout_marginBottom="1dp"
         android:layout_weight="4">
         <ImageButton
+            android:id="@+id/input_function_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/main_function_big_button"
             android:elevation="10dp"
             android:src="@mipmap/input"/>
+
         <ImageButton
+            android:id="@+id/sell_function_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/main_function_big_button"
-            android:src="@mipmap/sell_item"/>
+            android:src="@mipmap/sell_item" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4">
+
         <ImageButton
+            android:id="@+id/search_function_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/main_function_big_button"
             android:elevation="10dp"
-            android:background="@color/main_function_big_button"
-            android:src="@mipmap/search"/>
+            android:src="@mipmap/search" />
+
         <ImageButton
+            android:id="@+id/analyse_function_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/main_function_big_button"
-            android:src="@mipmap/data_analyse"/>
+            android:src="@mipmap/data_analyse" />
     </LinearLayout>
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
-    </LinearLayout>
+        android:layout_weight="2"
+        android:background="@mipmap/button_rectangle"
+        android:weightSum="1">
+        
+        <ImageButton
+            android:id="@+id/order_function_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@mipmap/order_bt"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            />
+
+        <ImageButton
+            android:id="@+id/main_page_function_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@mipmap/main_page_bt"
+            android:layout_margin="10dp"
+            android:layout_centerHorizontal="true"
+            />
+
+        <ImageButton
+            android:id="@+id/member_function_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@mipmap/member_bt"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="30dp"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+    
 </LinearLayout>

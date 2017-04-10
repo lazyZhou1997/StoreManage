@@ -17,7 +17,11 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     private String type;//建表类型：用户表还是用户数据表
 
     //表名
-    public static final String USER_TABLE = "User";
+    public static final String USER_TABLE = "User";//用户表
+    public static final String ITEM_TABLE = "Item";//商品表
+    public static final String CUSTOMER_TABLE = "Customer";//顾客表
+    public static final String ORDER_TABLE = "Order";//订单表
+
 
 
     //建表语句选择
@@ -29,6 +33,34 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
             "account text," +
             "password text," +
             "phonenumber text)";
+    //建表语句：Item
+    private static final String CREATE_BOOK_ITEM = "create table Item(" +
+            "id integer primary key autoincrement," +
+            "name text," +
+            "purchaseDate text," +
+            "productDate text," +
+            "qualityDate integer," +
+            "costPrice real," +
+            "sellingPrice real," +
+            "quantity real," +
+            "barCode text)";
+    //建表语句：Customer
+    private static final String CREATE_BOOK_CUSTOMER = "create table Customer(" +
+            "id integer primary key autoincrement," +
+            "name text," +
+            "telNumber text," +
+            "address text," +
+            "integral integer)";
+    //建表语句：Order
+    private static final String CREATE_BOOK_ODER = "create table Order(" +
+            "id integer primary key autoincrement," +
+            "date text," +
+            "quantity real," +
+            "itemID text," +
+            "customID text," +
+            "actSellPrice real," +
+            "profit real)";
+
 
     /**
      * 构造函数
@@ -55,18 +87,27 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        Log.d("TGP", "onCreate: reach");
         //建立用户表
         if (type.equals(USER)) {
             db.execSQL(CREATE_BOOK_USER);
             Toast.makeText(mContext, "建表成功", Toast.LENGTH_SHORT).show();
-            Log.d("TGP", "onCreate: 建User表成功");
+        }else if (type.equals(DATA)){//建数据表
+
+            db.execSQL(CREATE_BOOK_CUSTOMER);//建顾客表
+            db.execSQL(CREATE_BOOK_ITEM);//建商品表
+            db.execSQL(CREATE_BOOK_ODER);//建订单表
+            Toast.makeText(mContext, "建表数据表成功", Toast.LENGTH_SHORT).show();
         }
 
 
     }
 
-
+    /**
+     * 升级数据库时使用，本次开发不用2017-4-10
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
