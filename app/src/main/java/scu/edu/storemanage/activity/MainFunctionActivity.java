@@ -29,6 +29,9 @@ public class MainFunctionActivity extends Activity {
 
     //登录的用户信息
     private User user;
+    //数据库名
+    private String databaseName;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,17 +39,69 @@ public class MainFunctionActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main_function_layout);
         initUIComponent();//初始化控件
+        getUserInfo(getIntent());//获得登录用户信息(user)
+        databaseName = user.getAccount()+user.getPassword()+".db";//初始化数据库
+
 
         //设置录入商品按钮的监听
         input_item_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent inputIntent = new Intent(MainFunctionActivity.this,InputItemActivity.class);
+                inputIntent.putExtra("databaseName",databaseName);
                 startActivity(inputIntent);
             }
         });
 
-        //进入
+        //设置售卖商品的监听
+        sell_item_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sellingIntent = new Intent(MainFunctionActivity.this,SellItemActivity.class);
+                sellingIntent.putExtra("databaseName",databaseName);
+                startActivity(sellingIntent);
+            }
+        });
+
+        //设置搜索商品的监听
+        search_item_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent searchIntent = new Intent(MainFunctionActivity.this,SellItemActivity.class);
+                searchIntent.putExtra("databaseName",databaseName);
+                startActivity(searchIntent);
+            }
+        });
+
+        //设置分析数据的监听
+        analyse_data_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent analyseIntent = new Intent(MainFunctionActivity.this,SellItemActivity.class);
+                analyseIntent.putExtra("databaseName",databaseName);
+                startActivity(analyseIntent);
+            }
+        });
+
+        //设置订单界面的监听
+        order_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent orderIntent = new Intent(MainFunctionActivity.this,SellItemActivity.class);
+                orderIntent.putExtra("databaseName",databaseName);
+                startActivity(orderIntent);
+            }
+        });
+
+        //设置会员界面的监听
+        member_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent memberIntent = new Intent(MainFunctionActivity.this,SellItemActivity.class);
+                memberIntent.putExtra("databaseName",databaseName);
+                startActivity(memberIntent);
+            }
+        });
     }
 
     /**

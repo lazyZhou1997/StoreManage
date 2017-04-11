@@ -44,6 +44,21 @@
         <activity android:name=".activity.SellItemActivity">
         </activity>
 
+        <!--查询商品界面-->
+        <activity android:name=".activity.SearchItemActivity">
+        </activity>
+
+        <!--分析数据界面-->
+        <activity android:name=".activity.AnalyseDataActivity">
+        </activity>
+
+        <!--订单界面-->
+        <activity android:name=".activity.OrderActivity">
+        </activity>
+
+        <!--会员界面-->
+        <activity android:name=".activity.MemberActivity">
+        </activity>
 
     </application>
 

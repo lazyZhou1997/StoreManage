@@ -10,10 +10,10 @@ import android.widget.Toast;
 import scu.edu.storemanage.R;
 
 /**
- * Created by asus on 2017/4/10.
+ * Created by asus on 2017/4/11.
  */
 
-public class SellItemActivity extends Activity {
+public class OrderActivity extends Activity {
 
     //该用户下的数据库
     private SQLiteDatabase database;
@@ -24,9 +24,9 @@ public class SellItemActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.sell_item_layout);
+        setContentView(R.layout.order_layout);
         //初始化数据库的名字
         databaseName = getIntent().getStringExtra("databaseName");
-        Toast.makeText(this, "SellingItemActivity", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "OrderActivity", Toast.LENGTH_SHORT).show();
     }
 }
