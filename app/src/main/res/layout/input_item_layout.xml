@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg">
+    android:background="@mipmap/bg"
+    android:orientation="vertical">
 
     <!--标题-->
     <LinearLayout
@@ -12,18 +13,18 @@
 
         <ImageButton
             android:id="@+id/return_button"
-            android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:background="@color/transparent"
             android:src="@mipmap/return_bt"/>
         <TextView
-            android:layout_marginStart="80dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:text="@string/input_item"
             android:textColor="@color/red"
-            android:textSize="30sp"
-            android:text="@string/input_item"/>
+            android:textSize="30sp" />
     </LinearLayout>
 
     <!--商品名称-->
@@ -35,8 +36,8 @@
         android:gravity="center"
         android:hint="@string/item_name"
         android:inputType="textPersonName"
-        android:textSize="30sp"
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/white"
+        android:textSize="30sp" />
 
     <!--进价-->
     <LinearLayout
@@ -45,23 +46,23 @@
         android:layout_marginTop="10dp">
 
         <TextView
-            android:layout_marginStart="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="@string/cost_price"
             android:textColor="@color/red"
-            android:textSize="30sp"
-            android:text="@string/cost_price"/>
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/cost_price_edit"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:ems="10"
-            android:hint="@string/input_hint_price"
-            android:textColorHint="@color/white"
             android:layout_marginStart="60dp"
-            android:inputType="numberDecimal" />
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/input_hint_price"
+            android:inputType="numberDecimal"
+            android:textColorHint="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -77,23 +78,23 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_marginStart="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="@string/sell_price"
             android:textColor="@color/red"
-            android:textSize="30sp"
-            android:text="@string/sell_price"/>
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/sell_price_edit"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:ems="10"
-            android:hint="@string/input_hint_price"
             android:layout_marginStart="60dp"
-            android:textColorHint="@color/white"
-            android:inputType="numberDecimal" />
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/input_hint_price"
+            android:inputType="numberDecimal"
+            android:textColorHint="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -110,23 +111,23 @@
         android:layout_marginTop="10dp">
 
         <TextView
-            android:layout_marginStart="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="@string/quantity_date"
             android:textColor="@color/red"
-            android:textSize="30sp"
-            android:text="@string/quantity_date"/>
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/quality_date_edit"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:ems="10"
-            android:hint="@string/input_hint_quantity"
             android:layout_marginStart="30dp"
-            android:textColorHint="@color/white"
-            android:inputType="number" />
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/input_hint_quantity"
+            android:inputType="number"
+            android:textColorHint="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -142,23 +143,23 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_marginStart="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="@string/quantity"
             android:textColor="@color/red"
-            android:textSize="30sp"
-            android:text="@string/quantity"/>
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/quantity_edit"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:ems="10"
-            android:hint="@string/input_hint_quantity"
             android:layout_marginStart="30dp"
-            android:textColorHint="@color/white"
-            android:inputType="number" />
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/input_hint_quantity"
+            android:inputType="numberDecimal"
+            android:textColorHint="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -173,23 +174,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_marginStart="35dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:text="@string/product_date"
             android:textColor="@color/red"
-            android:textSize="30sp"
-            android:text="@string/product_date"/>
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/product_year_edit"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:ems="10"
-            android:hint="@string/year"
-            android:textColorHint="@color/white"
             android:layout_marginStart="20dp"
-            android:inputType="number" />
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/input_hint_year"
+            android:inputType="number"
+            android:textColorHint="@color/white" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -206,14 +207,14 @@
 
         <EditText
             android:id="@+id/product_month_edit"
-            android:layout_marginStart="175dp"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginStart="175dp"
             android:ems="10"
+            android:gravity="center"
             android:hint="@string/input_hint_month"
-            android:textColorHint="@color/white"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColorHint="@color/white" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -228,14 +229,14 @@
         android:layout_height="wrap_content">
         <EditText
             android:id="@+id/product_day_edit"
-            android:layout_marginStart="175dp"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginStart="175dp"
             android:ems="10"
+            android:gravity="center"
             android:hint="@string/input_hint_month"
-            android:textColorHint="@color/white"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColorHint="@color/white" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -251,20 +252,20 @@
         android:layout_marginTop="10dp">
 
         <TextView
-            android:layout_marginStart="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="@string/barcode"
             android:textColor="@color/red"
-            android:textSize="30sp"
-            android:text="@string/barcode"/>
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/barcode_text"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:ems="10"
             android:layout_marginStart="30dp"
+            android:ems="10"
+            android:gravity="center"
             android:textColorHint="@color/white" />
     </LinearLayout>
 
@@ -272,23 +273,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/clear_button"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="50dp"
+            android:layout_weight="1"
             android:text="@string/clear_button"
             android:textColor="@color/red" />
         <Button
             android:id="@+id/save_button"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="50dp"
+            android:layout_weight="1"
             android:text="@string/save_button"
             android:textColor="@color/red"/>
     </LinearLayout>

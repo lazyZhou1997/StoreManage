@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg">
+    android:background="@mipmap/bg"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="@string/function_broadcast" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,7 +68,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.3"
         android:background="@mipmap/button_rectangle"
         android:weightSum="1">
         
@@ -75,33 +76,33 @@
             android:id="@+id/order_function_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:src="@mipmap/order_bt"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/transparent"
+            android:src="@mipmap/order_bt"
             />
 
         <ImageButton
             android:id="@+id/main_page_function_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
             android:background="@color/transparent"
             android:src="@mipmap/main_page_bt"
-            android:layout_margin="10dp"
-            android:layout_centerHorizontal="true"
             />
 
         <ImageButton
             android:id="@+id/member_function_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:src="@mipmap/member_bt"
-            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="30dp"
-            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:background="@color/transparent"
+            android:src="@mipmap/member_bt"
             />
 
     </RelativeLayout>

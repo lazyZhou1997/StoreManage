@@ -1,11 +1,18 @@
 package scu.edu.storemanage.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.view.Window;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.zxing.activity.CaptureActivity;
 
 import scu.edu.storemanage.R;
 
@@ -20,13 +27,87 @@ public class InputItemActivity extends Activity {
     //该用户下的数据库名字
     private String databaseName;
 
+    //UI
+    private ImageButton return_button;//返回按钮
+    private EditText name_edit;//商品名输入框
+    private EditText cost_price_edit;//进价输入框
+    private EditText sell_price_edit;//售价输入框
+    private EditText quality_date_edit;//保质期输入框
+    private EditText quantity_edit;//数量输入框
+    private EditText product_year_edit;//生产日期，年
+    private EditText product_month_edit;//生产日期，月
+    private EditText product_day_edit;//生产日期，日
+    private TextView barcode_text;//条形码显示框
+    private Button clear_button;//清空按钮
+    private Button save_button;//保存按钮
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.input_item_layout);
+        initUIComponent();//初始化UI
+
+        //直接跳转到扫描二维码的位置
+        Intent barcodeIntent = new Intent(this, CaptureActivity.class);
+        startActivityForResult(barcodeIntent, 0);
+
+        //监听退出录入商品
+        return_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         //初始化数据库的名字
         databaseName = getIntent().getStringExtra("databaseName");
+        //
+    }
 
+    /**
+     * 初始化UI控件
+     */
+    private void initUIComponent() {
+
+        return_button = ( ImageButton )findViewById(R.id.return_button);
+        name_edit = ( EditText )findViewById(R.id.item_name_edit);
+        cost_price_edit = ( EditText )findViewById(R.id.cost_price_edit);
+        sell_price_edit = ( EditText )findViewById(R.id.sell_price_edit);
+        quality_date_edit = ( EditText )findViewById(R.id.quality_date_edit);
+        quantity_edit = ( EditText )findViewById(R.id.quantity_edit);
+        product_year_edit = ( EditText )findViewById(R.id.product_year_edit);
+        product_month_edit = ( EditText )findViewById(R.id.product_month_edit);
+        product_day_edit = ( EditText )findViewById(R.id.product_day_edit);
+        barcode_text = ( TextView )findViewById(R.id.barcode_text);
+        clear_button = ( Button )findViewById(R.id.clear_button);
+        save_button = ( Button )findViewById(R.id.save_button);
+
+    }
+
+    /**
+     * 处理二维码扫描的结果
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 0:
+                if (resultCode == RESULT_OK) {//成功返回条形码
+                    String barcode = data.getExtras().getString("result");
+                    barcode_text.setText(barcode);
+                } else {
+                    barcode_text.setText("条码出错");
+                }
+                break;
+        }
+
+        return;
     }
 }
