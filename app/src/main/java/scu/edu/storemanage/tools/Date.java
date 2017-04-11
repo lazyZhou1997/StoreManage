@@ -27,6 +27,20 @@ public class Date {
     }
 
     /**
+     * 传入特定的字符串，创建Date对象：字符串类型“年_月_日”
+     * @param stDate 传入的字符串类型
+     */
+    public Date(String stDate){
+        //将字符串解析
+        String[] dates = stDate.split("_");
+
+        this.year = Integer.parseInt(dates[0]);
+        this.month = Integer.parseInt(dates[1]);
+        this.day = Integer.parseInt(dates[2]);
+
+    }
+
+    /**
      * 获得当前日
      *
      * @return 当前日

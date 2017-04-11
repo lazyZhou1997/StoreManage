@@ -35,7 +35,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
             "phonenumber text)";
     //建表语句：Item
     private static final String CREATE_BOOK_ITEM = "create table Item(" +
-            "id integer primary key autoincrement," +
+            "ID integer primary key autoincrement," +
             "name text," +
             "purchaseDate text," +
             "productDate text," +
@@ -46,14 +46,14 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
             "barCode text)";
     //建表语句：Customer
     private static final String CREATE_BOOK_CUSTOMER = "create table Customer(" +
-            "id integer primary key autoincrement," +
+            "ID integer primary key autoincrement," +
             "name text," +
             "telNumber text," +
             "address text," +
             "integral integer)";
     //建表语句：Order
     private static final String CREATE_BOOK_ODER = "create table Order(" +
-            "id integer primary key autoincrement," +
+            "ID integer primary key autoincrement," +
             "date text," +
             "quantity real," +
             "itemID text," +

@@ -22,7 +22,8 @@ public class Item {
     //方法
 
     /**
-     *传入除商品ID以外的参数构建一个Item对象
+     *传入除商品参数构建一个Item对象
+     * @param ID
      * @param barCode
      * @param name
      * @param purchaseDate
@@ -32,9 +33,9 @@ public class Item {
      * @param sellingPrice
      * @param quantity
      */
-    public Item(String barCode,String name,Date purchaseDate,Date productDate,int qualityDate,
+    public Item(String ID,String barCode,String name,Date purchaseDate,Date productDate,int qualityDate,
                 double costPrice,double sellingPrice,double quantity){
-
+        this.ID = ID;
         this.barCode = barCode;
         this.name = name;
         this.purchaseDate = purchaseDate;
