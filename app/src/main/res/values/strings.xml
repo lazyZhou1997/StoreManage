@@ -11,4 +11,12 @@
     <string name="forget_password">忘记密码</string>
     <!--注册界面-->
     <string name="phone_number">电话</string>
+    <string name="item_name">商品名称</string>
+    <!--录入商品界面-->
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="product_date">生产日期</string>
+    <string name="cost_price">进价</string>
+    <string name="sell_price">售价</string>
 </resources>

@@ -27,6 +27,5 @@ public class InputItemActivity extends Activity {
         setContentView(R.layout.input_item_layout);
         //初始化数据库的名字
         databaseName = getIntent().getStringExtra("databaseName");
-        Toast.makeText(this, "InputItemActivity", Toast.LENGTH_SHORT).show();
     }
 }
