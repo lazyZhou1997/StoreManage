@@ -17,6 +17,19 @@
     <string name="month">月</string>
     <string name="day">日</string>
     <string name="product_date">生产日期</string>
-    <string name="cost_price">进价</string>
-    <string name="sell_price">售价</string>
+    <string name="cost_price">进&#160;&#160;价</string>
+    <string name="sell_price">售&#160;&#160;价</string>
+    <string name="quantity_date">保&#160;质&#160;期</string>
+    <string name="quantity">进&#160;货&#160;量</string>
+    <string name="barcode">条&#160;形&#160;码</string>
+    <string name="input_item">商品录入</string>
+    <string name="input_hint_price">10.1</string>
+    <string name="input_hint_quantity">12</string>
+    <string name="input_hint_year">2017</string>
+    <string name="input_hint_month">1</string>
+    <string name="danwei">袋</string>
+    <string name="yuan">元</string>
+    <string name="tian">天</string>
+    <string name="clear_button">清除</string>
+    <string name="save_button">保存</string>
 </resources>

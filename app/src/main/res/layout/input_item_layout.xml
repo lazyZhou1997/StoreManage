@@ -4,6 +4,28 @@
     android:layout_height="match_parent"
     android:background="@mipmap/bg">
 
+    <!--标题-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@mipmap/return_bt"/>
+        <TextView
+            android:layout_marginStart="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="30sp"
+            android:text="@string/input_item"/>
+    </LinearLayout>
+
+    <!--商品名称-->
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
@@ -15,39 +37,174 @@
         android:textSize="30sp"
         android:textColorHint="@color/white"/>
 
+    <!--进价-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_marginStart="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="30sp"
+            android:text="@string/cost_price"/>
+
+        <EditText
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:ems="10"
+            android:hint="@string/input_hint_price"
+            android:textColorHint="@color/white"
+            android:layout_marginStart="60dp"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yuan"
+            android:textColor="@color/red"
+            android:textSize="30sp"/>
+    </LinearLayout>
+
+    <!--售价-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginStart="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="30sp"
+            android:text="@string/sell_price"/>
+
+        <EditText
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:ems="10"
+            android:hint="@string/input_hint_price"
+            android:layout_marginStart="60dp"
+            android:textColorHint="@color/white"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yuan"
+            android:textColor="@color/red"
+            android:textSize="30sp"/>
+    </LinearLayout>
+
+    <!--保质期-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_marginStart="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="30sp"
+            android:text="@string/quantity_date"/>
+
+        <EditText
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:ems="10"
+            android:hint="@string/input_hint_quantity"
+            android:layout_marginStart="30dp"
+            android:textColorHint="@color/white"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tian"
+            android:textColor="@color/red"
+            android:textSize="30sp"/>
+    </LinearLayout>
+
+    <!--进货量-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginStart="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="30sp"
+            android:text="@string/quantity"/>
+
+        <EditText
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:ems="10"
+            android:hint="@string/input_hint_quantity"
+            android:layout_marginStart="30dp"
+            android:textColorHint="@color/white"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/danwei"
+            android:textColor="@color/red"
+            android:textSize="30sp"/>
+    </LinearLayout>
+
+    <!--生产日期：年-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:layout_marginStart="35dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/red"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:text="@string/product_date"/>
 
         <EditText
             android:id="@+id/editText2"
-            android:layout_width="50dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:ems="10"
-            android:hint="2017"
+            android:hint="@string/year"
             android:textColorHint="@color/white"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:inputType="number" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/year"
             android:textColor="@color/red"
-            android:textSize="30dp"/>
+            android:textSize="30sp"/>
 
+    </LinearLayout>
+
+    <!--生产日期：月-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <EditText
-            android:layout_width="50dp"
+            android:layout_marginStart="175dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:ems="10"
-            android:hint="1"
+            android:hint="@string/input_hint_month"
             android:textColorHint="@color/white"
             android:inputType="number" />
         <TextView
@@ -55,14 +212,20 @@
             android:layout_height="wrap_content"
             android:text="@string/month"
             android:textColor="@color/red"
-            android:textSize="30dp"/>
+            android:textSize="30sp"/>
+    </LinearLayout>
 
+    <!--生产日期：日-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <EditText
-            android:layout_width="50dp"
+            android:layout_marginStart="175dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:ems="10"
-            android:hint="1"
+            android:hint="@string/input_hint_month"
             android:textColorHint="@color/white"
             android:inputType="number" />
         <TextView
@@ -70,14 +233,53 @@
             android:layout_height="wrap_content"
             android:text="@string/day"
             android:textColor="@color/red"
-            android:textSize="30dp"/>
+            android:textSize="30sp"/>
     </LinearLayout>
 
-   <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/red"
-    android:textSize="30dp"
-    android:text="@string/cost_price"/>
+    <!--条形码-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_marginStart="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="30sp"
+            android:text="@string/barcode"/>
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:ems="10"
+            android:layout_marginStart="30dp"
+            android:textColorHint="@color/white" />
+    </LinearLayout>
+
+    <!--清除和保存按钮-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:text="@string/clear_button"
+            android:textColor="@color/red" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:text="@string/save_button"
+            android:textColor="@color/red"/>
+    </LinearLayout>
 
 </LinearLayout>
