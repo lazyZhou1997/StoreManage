@@ -87,7 +87,7 @@ public class Item {
     }
 
     /**
-     * 设置商品名称
+     * 设置的商品名称
      * @param name
      */
     public void setName(String name) {
@@ -204,11 +204,8 @@ public class Item {
         }
 
         //判断商品条形码是否相同
-        if(((Item) obj).getBarCode().equals(barCode)){
-            return true;
-        }
+        return (( Item )obj).getBarCode().equals(barCode);
 
-        return false;
     }
 
     /**

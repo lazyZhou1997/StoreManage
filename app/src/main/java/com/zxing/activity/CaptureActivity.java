@@ -36,7 +36,17 @@ import scu.edu.storemanage.R;
  */
 public class CaptureActivity extends Activity implements Callback {
 
-	private CaptureActivityHandler handler;
+    private static final float BEEP_VOLUME = 0.10f;
+    private static final long VIBRATE_DURATION = 200L;
+    /**
+     * When the beep has finished playing, rewind to queue up another one.
+     */
+    private final OnCompletionListener beepListener = new OnCompletionListener() {
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            mediaPlayer.seekTo(0);
+        }
+    };
+    private CaptureActivityHandler handler;
 	private ViewfinderView viewfinderView;
 	private boolean hasSurface;
 	private Vector<BarcodeFormat> decodeFormats;
@@ -44,7 +54,6 @@ public class CaptureActivity extends Activity implements Callback {
 	private InactivityTimer inactivityTimer;
 	private MediaPlayer mediaPlayer;
 	private boolean playBeep;
-	private static final float BEEP_VOLUME = 0.10f;
 	private boolean vibrate;
 	private Button cancelScanButton;
 
@@ -84,10 +93,10 @@ public class CaptureActivity extends Activity implements Callback {
 		}
 		initBeepSound();
 		vibrate = true;
-		
+
 		//quit the scan view
 		cancelScanButton.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				CaptureActivity.this.finish();
@@ -95,7 +104,7 @@ public class CaptureActivity extends Activity implements Callback {
 		});
 	}
 
-	@Override
+    @Override
 	protected void onPause() {
 		super.onPause();
 		if (handler != null) {
@@ -105,12 +114,12 @@ public class CaptureActivity extends Activity implements Callback {
 		CameraManager.get().closeDriver();
 	}
 
-	@Override
+    @Override
 	protected void onDestroy() {
 		inactivityTimer.shutdown();
 		super.onDestroy();
 	}
-	
+
 	/**
 	 * Handler scan result
 	 * @param result
@@ -123,7 +132,8 @@ public class CaptureActivity extends Activity implements Callback {
 		//FIXME
 		if (resultString.equals("")) {
 			Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
-		}else {
+            this.setResult(RESULT_CANCELED, null);
+        }else {
 //			System.out.println("Result:"+resultString);
 			Intent resultIntent = new Intent();
 			Bundle bundle = new Bundle();
@@ -133,7 +143,7 @@ public class CaptureActivity extends Activity implements Callback {
 		}
 		CaptureActivity.this.finish();
 	}
-	
+
 	private void initCamera(SurfaceHolder surfaceHolder) {
 		try {
 			CameraManager.get().openDriver(surfaceHolder);
@@ -205,8 +215,6 @@ public class CaptureActivity extends Activity implements Callback {
 		}
 	}
 
-	private static final long VIBRATE_DURATION = 200L;
-
 	private void playBeepSoundAndVibrate() {
 		if (playBeep && mediaPlayer != null) {
 			mediaPlayer.start();
@@ -216,14 +224,5 @@ public class CaptureActivity extends Activity implements Callback {
 			vibrator.vibrate(VIBRATE_DURATION);
 		}
 	}
-
-	/**
-	 * When the beep has finished playing, rewind to queue up another one.
-	 */
-	private final OnCompletionListener beepListener = new OnCompletionListener() {
-		public void onCompletion(MediaPlayer mediaPlayer) {
-			mediaPlayer.seekTo(0);
-		}
-	};
 
 }
