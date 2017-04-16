@@ -1,13 +1,12 @@
 package scu.edu.storemanage.database;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import scu.edu.storemanage.item.Item;
-import scu.edu.storemanage.item.User;
 import scu.edu.storemanage.tools.Date;
 
 /**
@@ -85,7 +84,7 @@ public class ItemDatabase {
 
     /**
      * 传入商品名称，返回Item[]对象数组，失败返回null
-     * @param itemName 商品名称
+     * @param itemNames 商品名称
      *
      * @return Item对象数组
      */
@@ -145,7 +144,56 @@ public class ItemDatabase {
      */
     public void insert(Item item){
 
+        //组装数据
+        ContentValues values = new ContentValues();
+        values.put("name", item.getName());
+        values.put("purchaseDate", item.getPurchaseDate().toString());
+        values.put("productDate", item.getProductDate().toString());
+        values.put("qualityDate", item.getQualityDate());
+        values.put("costPrice", item.getCostPrice());
+        values.put("sellingPrice", item.getSellingPrice());
+        values.put("quantity", item.getQuantity());
+        values.put("barCode", item.getBarCode());
+        database.insert(MySQLiteOpenHelper.ITEM_TABLE, null, values);
+        values.clear();
+
+        return;
     }
 
+    /**
+     * 根据传入的item的商品的条形码，购买日期，生产日期更新数据库
+     *
+     * @param item
+     */
+    public void updateByBarcodeAndPurchaseDateAndProductDate(Item item) {
+        //组装数据
+        ContentValues values = new ContentValues();
+        values.put("name", item.getName());
+        values.put("purchaseDate", item.getPurchaseDate().toString());
+        values.put("productDate", item.getProductDate().toString());
+        values.put("qualityDate", item.getQualityDate());
+        values.put("costPrice", item.getCostPrice());
+        values.put("sellingPrice", item.getSellingPrice());
+        values.put("quantity", item.getQuantity());
+        values.put("barCode", item.getBarCode());
+        database.update(MySQLiteOpenHelper.ITEM_TABLE, values, "purchaseDate = ? | productDate = ? | barCode = ?",
+                new String[]{item.getPurchaseDate().toString(), item.getProductDate().toString(), item.getBarCode()});
+
+        return;
+
+    }
+
+    /**
+     * 根据传入item商品的条形码，购买日期，生产日期判断该商品在数据库中是否存在
+     *
+     * @param item 商品对象
+     * @return 存在返回true，不存在返回false
+     */
+    public boolean exitByBarcodeAndPurchaseDateAndProductDate(Item item) {
+
+        return null != database.query(MySQLiteOpenHelper.ITEM_TABLE, null, "purchaseDate = ? | productDate = ? | barCode = ?",
+                new String[]{item.getPurchaseDate().toString(), item.getProductDate().toString(), item.getBarCode()}, null,
+                null, null);
+    }
 
 }
