@@ -44,7 +44,7 @@ public class ItemDatabase {
         }
 
         //Item属性定义
-        String ID;
+        int ID;
         String itemName;
         Date purchaseDate;
         Date productDate;
@@ -61,7 +61,7 @@ public class ItemDatabase {
 
             //遍历cursor对象
             do {
-                ID = cursor.getString(cursor.getColumnIndex("ID"));
+                ID = cursor.getInt(cursor.getColumnIndex("ID"));
                 itemName = cursor.getString(cursor.getColumnIndex("name"));
                 purchaseDate = new Date(cursor.getString(cursor.getColumnIndex("purchaseDate")));
                 productDate = new Date(cursor.getString(cursor.getColumnIndex("productDate")));
@@ -100,7 +100,7 @@ public class ItemDatabase {
         }
 
         //Item属性定义
-        String ID;
+        int ID;
         String itemName;
         Date purchaseDate;
         Date productDate;
@@ -117,7 +117,7 @@ public class ItemDatabase {
 
             //遍历cursor对象
             do {
-                ID = cursor.getString(cursor.getColumnIndex("ID"));
+                ID = cursor.getInt(cursor.getColumnIndex("ID"));
                 itemName = cursor.getString(cursor.getColumnIndex("name"));
                 purchaseDate = new Date(cursor.getString(cursor.getColumnIndex("purchaseDate")));
                 productDate = new Date(cursor.getString(cursor.getColumnIndex("productDate")));
@@ -194,6 +194,58 @@ public class ItemDatabase {
         return null != database.query(MySQLiteOpenHelper.ITEM_TABLE, null, "purchaseDate = ? | productDate = ? | barCode = ?",
                 new String[]{item.getPurchaseDate().toString(), item.getProductDate().toString(), item.getBarCode()}, null,
                 null, null);
+    }
+
+    /**
+     * 根据传入item商品的条形码，购买日期，生产日期获得商品
+     * @param item 商品对象
+     * @return 返回商品对象
+     */
+    public Item SearchByBarcodeAndPurchaseDateAndProductDate(Item item){
+        //查询数据
+        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE,null,"purchaseDate = ? | productDate = ? | barCode = ?",
+                new String[]{item.getPurchaseDate().toString(), item.getProductDate().toString(), item.getBarCode()},null,
+                null,null);
+
+        //组装数据
+        if (cursor==null)
+        {
+            return null;
+        }
+
+        //Item属性定义
+        int ID;
+        String itemName;
+        Date purchaseDate;
+        Date productDate;
+        int qualityDate;
+        double costPrice;
+        double sellingPrice;
+        double quantity;
+        String barcode;
+
+
+        if (cursor.moveToFirst()){//指针移动到第一行进行循环
+
+            //组装数据
+            ID = cursor.getInt(cursor.getColumnIndex("ID"));
+            itemName = cursor.getString(cursor.getColumnIndex("name"));
+            purchaseDate = new Date(cursor.getString(cursor.getColumnIndex("purchaseDate")));
+            productDate = new Date(cursor.getString(cursor.getColumnIndex("productDate")));
+            qualityDate = cursor.getInt(cursor.getColumnIndex("qualityDate"));
+            costPrice = cursor.getDouble(cursor.getColumnIndex("costPrice"));
+            sellingPrice = cursor.getDouble(cursor.getColumnIndex("sellingPrice"));
+            quantity = cursor.getDouble(cursor.getColumnIndex("quantity"));
+            barcode = cursor.getString(cursor.getColumnIndex("barCode"));
+
+            //组装item并返回
+            return new Item(ID, barcode, itemName, purchaseDate, productDate, qualityDate, costPrice,
+                    sellingPrice, quantity);
+
+        }else {
+            return null;
+        }
+
     }
 
 }

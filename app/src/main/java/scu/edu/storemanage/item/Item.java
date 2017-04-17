@@ -9,7 +9,7 @@ import scu.edu.storemanage.tools.Date;
 public class Item {
 
     //属性
-    private String ID;//商品ID
+    private int ID;//商品ID
     private String barCode;//商品条形码
     private String name;//商品名称
     private Date purchaseDate;//商品买入日期
@@ -33,7 +33,7 @@ public class Item {
      * @param sellingPrice
      * @param quantity
      */
-    public Item(String ID,String barCode,String name,Date purchaseDate,Date productDate,int qualityDate,
+    public Item(int ID,String barCode,String name,Date purchaseDate,Date productDate,int qualityDate,
                 double costPrice,double sellingPrice,double quantity){
         this.ID = ID;
         this.barCode = barCode;
@@ -50,7 +50,7 @@ public class Item {
      * 获得商品ID
      * @return 商品ID
      */
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
@@ -58,7 +58,7 @@ public class Item {
      * 设置商品ID
      * @param ID 商品ID
      */
-    public void setID(String ID) {
+    public void setID(int ID) {
         this.ID = ID;
     }
 

@@ -20,7 +20,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public static final String USER_TABLE = "User";//用户表
     public static final String ITEM_TABLE = "Item";//商品表
     public static final String CUSTOMER_TABLE = "Customer";//顾客表
-    public static final String ORDER_TABLE = "Order";//订单表
+    public static final String ORDER_TABLE = "Orders";//订单表
 
 
 
@@ -52,12 +52,12 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
             "address text," +
             "integral integer)";
     //建表语句：Order
-    private static final String CREATE_BOOK_ODER = "create table Order(" +
+    private static final String CREATE_BOOK_ORDER = "create table Orders(" +
             "ID integer primary key autoincrement," +
-            "date text," +
+            "purchaseDate text," +
             "quantity real," +
-            "itemID text," +
-            "customID text," +
+            "itemID integer," +
+            "customID integer," +
             "actSellPrice real," +
             "profit real)";
 
@@ -95,7 +95,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
             db.execSQL(CREATE_BOOK_CUSTOMER);//建顾客表
             db.execSQL(CREATE_BOOK_ITEM);//建商品表
-            db.execSQL(CREATE_BOOK_ODER);//建订单表
+            db.execSQL(CREATE_BOOK_ORDER);//建订单表
             Toast.makeText(mContext, "建表数据表成功", Toast.LENGTH_SHORT).show();
         }
 

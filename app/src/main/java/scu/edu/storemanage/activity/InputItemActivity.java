@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.format.Time;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -18,6 +19,10 @@ import android.widget.Toast;
 import com.zxing.activity.CaptureActivity;
 
 import scu.edu.storemanage.R;
+import scu.edu.storemanage.database.ItemDatabase;
+import scu.edu.storemanage.database.MySQLiteOpenHelper;
+import scu.edu.storemanage.item.Item;
+import scu.edu.storemanage.tools.Date;
 
 /**
  * Created by 周秦春 on 2017/4/10.
@@ -27,8 +32,6 @@ public class InputItemActivity extends Activity {
 
     //该用户下的数据库
     private SQLiteDatabase database;
-    //该用户下的数据库名字
-    private String databaseName;
 
     //UI
     private ImageButton return_button;//返回按钮
@@ -54,6 +57,13 @@ public class InputItemActivity extends Activity {
         setContentView(R.layout.input_item_layout);
         initUIComponent();//初始化UI
 
+        //获得该用户下的数据库
+        database = MainFunctionActivity.getDatabase();
+        if (database==null){
+            Toast.makeText(this, "读取数据库失败", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
         //直接跳转到扫描条形码的位置
         Intent barcodeIntent = new Intent(this, CaptureActivity.class);
         startActivityForResult(barcodeIntent, 0);
@@ -66,9 +76,6 @@ public class InputItemActivity extends Activity {
                 startActivityForResult(barcodeIntent, 0);
             }
         });
-
-        //初始化数据库的名字
-        databaseName = getIntent().getStringExtra("databaseName");
 
         //监听退出录入商品
         return_button.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +120,56 @@ public class InputItemActivity extends Activity {
             }
         });
 
-        //
+        //监听保存数据按钮
+        clear_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveData();;
+            }
+        });
+
+
+    }
+
+    //保存用户输入的数据
+    private void saveData(){
+
+        //edit中获取输入数据
+        String name = name_edit.getText().toString();
+        String costPrice = cost_price_edit.getText().toString();
+        String sellingPrice = sell_price_edit.getText().toString();
+        String qualityDate = quality_date_edit.getText().toString();
+        String quantity = quantity_edit.getText().toString();
+        String productDate = product_year_edit.getText().toString()+"_"+product_month_edit.getText().toString()+
+                "_"+product_day_edit.getText().toString();
+        String barcode = barcode_text.getText().toString();
+
+        //判断输入是否为空
+        if (name.equals("")||costPrice.equals("")||sellingPrice.equals("")||qualityDate.equals("")||
+                quantity.equals("")||productDate.equals("")||barcode.equals("")){
+            Toast.makeText(this, "请补全输入", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //取得系统的当前日期
+        Time time = new Time();
+        String purchaseDate = time.year+"_"+(time.month+1)+"_"+time.monthDay;
+
+        Item item = new Item(-1,barcode,name, new Date(purchaseDate),new Date(productDate),
+                Integer.parseInt(qualityDate),Double.parseDouble(costPrice),Double.parseDouble(sellingPrice),
+                Double.parseDouble(quantity));
+
+        //数据库操作
+        ItemDatabase itemDatabase = new ItemDatabase(database);
+        //是否已经存在
+        if (itemDatabase.exitByBarcodeAndPurchaseDateAndProductDate(item)){
+            //已经存在,更新
+            Item itemInDatabase = itemDatabase.SearchByBarcodeAndPurchaseDateAndProductDate(item);
+            item.setQuantity(itemInDatabase.getQuantity()+item.getQuantity());
+            itemDatabase.updateByBarcodeAndPurchaseDateAndProductDate(item);
+        }else {
+            itemDatabase.insert(item);
+        }
     }
 
     /**

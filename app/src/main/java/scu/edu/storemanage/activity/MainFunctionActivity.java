@@ -2,6 +2,7 @@ package scu.edu.storemanage.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import scu.edu.storemanage.R;
+import scu.edu.storemanage.database.MySQLiteOpenHelper;
 import scu.edu.storemanage.item.User;
 
 /**
@@ -17,6 +19,7 @@ import scu.edu.storemanage.item.User;
  */
 
 public class MainFunctionActivity extends Activity {
+
 
     //UI控件
     private ImageButton input_item_button;//录入
@@ -31,6 +34,8 @@ public class MainFunctionActivity extends Activity {
     private User user;
     //数据库名
     private String databaseName;
+    //数据库
+    private static SQLiteDatabase database;
 
 
     @Override
@@ -39,16 +44,18 @@ public class MainFunctionActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main_function_layout);
         initUIComponent();//初始化控件
-        getUserInfo(getIntent());//获得登录用户信息(user)
-        databaseName = user.getAccount()+user.getPassword()+".db";//初始化数据库
 
+        getUserInfo(getIntent());//获得登录用户信息(user)
+        databaseName = user.getAccount()+user.getPassword()+".db";
+        //创建数据库
+        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(MainFunctionActivity.this,databaseName,null,1,MySQLiteOpenHelper.DATA);
+        database = helper.getWritableDatabase();
 
         //设置录入商品按钮的监听
         input_item_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent inputIntent = new Intent(MainFunctionActivity.this,InputItemActivity.class);
-                inputIntent.putExtra("databaseName",databaseName);
                 startActivity(inputIntent);
             }
         });
@@ -104,6 +111,7 @@ public class MainFunctionActivity extends Activity {
         });
     }
 
+
     /**
      * 初始化UI控件
      */
@@ -133,5 +141,13 @@ public class MainFunctionActivity extends Activity {
         //组装用户信息
         user = new User(account,password,phoneNumber);
         return;
+    }
+
+    /**
+     *获得用户数据数据库
+     * @return 用户数据库,可能会为空
+     */
+    public static SQLiteDatabase getDatabase(){
+        return database;
     }
 }
