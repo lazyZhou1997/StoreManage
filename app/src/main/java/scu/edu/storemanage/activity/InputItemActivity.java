@@ -1,6 +1,8 @@
 package scu.edu.storemanage.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zxing.activity.CaptureActivity;
 
@@ -29,6 +32,7 @@ public class InputItemActivity extends Activity {
 
     //UI
     private ImageButton return_button;//返回按钮
+    private ImageButton scan_button;//跳转到扫描条形码
     private EditText name_edit;//商品名输入框
     private EditText cost_price_edit;//进价输入框
     private EditText sell_price_edit;//售价输入框
@@ -50,9 +54,21 @@ public class InputItemActivity extends Activity {
         setContentView(R.layout.input_item_layout);
         initUIComponent();//初始化UI
 
-        //直接跳转到扫描二维码的位置
+        //直接跳转到扫描条形码的位置
         Intent barcodeIntent = new Intent(this, CaptureActivity.class);
         startActivityForResult(barcodeIntent, 0);
+
+        //监听跳转到扫描二条形码界面
+        scan_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent barcodeIntent = new Intent(InputItemActivity.this, CaptureActivity.class);
+                startActivityForResult(barcodeIntent, 0);
+            }
+        });
+
+        //初始化数据库的名字
+        databaseName = getIntent().getStringExtra("databaseName");
 
         //监听退出录入商品
         return_button.setOnClickListener(new View.OnClickListener() {
@@ -62,8 +78,41 @@ public class InputItemActivity extends Activity {
             }
         });
 
-        //初始化数据库的名字
-        databaseName = getIntent().getStringExtra("databaseName");
+        //监听清空所有数据按钮
+        clear_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //对话框
+                AlertDialog.Builder builder = new AlertDialog.Builder(InputItemActivity.this);
+                builder.setTitle("清空");
+                builder.setMessage("清空所有已经输入的内容！");
+                builder.setCancelable(true);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        cost_price_edit.setText("");
+                        name_edit.setText("");
+                        product_day_edit.setText("");
+                        product_month_edit.setText("");
+                        product_year_edit.setText("");
+                        quality_date_edit.setText("");
+                        quantity_edit.setText("");
+                        sell_price_edit.setText("");
+                        barcode_text.setText("");
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(InputItemActivity.this, "取消清空", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
         //
     }
 
@@ -73,6 +122,7 @@ public class InputItemActivity extends Activity {
     private void initUIComponent() {
 
         return_button = ( ImageButton )findViewById(R.id.return_button);
+        scan_button = ( ImageButton )findViewById(R.id.scan_button);
         name_edit = ( EditText )findViewById(R.id.item_name_edit);
         cost_price_edit = ( EditText )findViewById(R.id.cost_price_edit);
         sell_price_edit = ( EditText )findViewById(R.id.sell_price_edit);

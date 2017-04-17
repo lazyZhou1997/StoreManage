@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <!--标题-->
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center_vertical">
@@ -15,17 +15,27 @@
             android:id="@+id/return_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_alignParentLeft="true"
             android:background="@color/transparent"
             android:src="@mipmap/return_bt"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_marginStart="80dp"
             android:text="@string/input_item"
             android:textColor="@color/red"
             android:textSize="30sp" />
-    </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/scan_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="20dp"
+            android:background="@color/transparent"
+            android:src="@mipmap/sao_miao"/>
+    </RelativeLayout>
 
     <!--商品名称-->
     <EditText
