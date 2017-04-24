@@ -127,7 +127,6 @@ public class InputItemActivity extends Activity {
             @Override
             public void onClick(View view) {
                 saveData();
-                Toast.makeText(InputItemActivity.this, "录入商品成功", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -156,6 +155,13 @@ public class InputItemActivity extends Activity {
             return;
         }
 
+        //判断扫描条形码是否出错
+        if (barcode.equals("条码出错")){
+            Toast.makeText(this, "条码出错，请重新扫描", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
         //取得系统的当前日期
         Time time = new Time();
         String purchaseDate = time.year+"_"+(time.month+1)+"_"+time.monthDay;
@@ -176,9 +182,13 @@ public class InputItemActivity extends Activity {
             Log.d(TAG, "saveData: 176");
             item.setQuantity(itemInDatabase.getQuantity()+item.getQuantity());
             itemDatabase.updateByBarcodeAndPurchaseDateAndProductDate(item);
+
+            Toast.makeText(this, "商品更新成功,当前数量"+item.getQuantity(), Toast.LENGTH_SHORT).show();
         }else {
             Log.d(TAG, "saveData: 180");
             itemDatabase.insert(item);
+
+            Toast.makeText(this, "商品录入成功", Toast.LENGTH_SHORT).show();
         }
     }
 

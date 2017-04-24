@@ -176,7 +176,7 @@ public class ItemDatabase {
         values.put("sellingPrice", item.getSellingPrice());
         values.put("quantity", item.getQuantity());
         values.put("barCode", item.getBarCode());
-        database.update(MySQLiteOpenHelper.ITEM_TABLE, values, "purchaseDate = ? | productDate = ? | barCode = ?",
+        database.update(MySQLiteOpenHelper.ITEM_TABLE, values, "purchaseDate = ? and productDate = ? and barCode = ?",
                 new String[]{item.getPurchaseDate().toString(), item.getProductDate().toString(), item.getBarCode()});
 
         return;
@@ -191,9 +191,14 @@ public class ItemDatabase {
      */
     public boolean exitByBarcodeAndPurchaseDateAndProductDate(Item item) {
 
-        return null != database.query(MySQLiteOpenHelper.ITEM_TABLE, null, "purchaseDate = ? | productDate = ? | barCode = ?",
+        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE, null, "purchaseDate = ? and productDate = ? and barCode = ?",
                 new String[]{item.getPurchaseDate().toString(), item.getProductDate().toString(), item.getBarCode()}, null,
                 null, null);
+        if (cursor.moveToFirst()){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     /**
@@ -203,7 +208,7 @@ public class ItemDatabase {
      */
     public Item SearchByBarcodeAndPurchaseDateAndProductDate(Item item){
         //查询数据
-        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE,null,"purchaseDate = ? | productDate = ? | barCode = ?",
+        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE,null,"purchaseDate = ? and productDate = ? and barCode = ?",
                 new String[]{item.getPurchaseDate().toString(), item.getProductDate().toString(), item.getBarCode()},null,
                 null,null);
 
