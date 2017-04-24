@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -30,6 +31,7 @@ import scu.edu.storemanage.tools.Date;
 
 public class InputItemActivity extends Activity {
 
+    private static final String TAG = "StoreManage";
     //该用户下的数据库
     private SQLiteDatabase database;
 
@@ -121,10 +123,12 @@ public class InputItemActivity extends Activity {
         });
 
         //监听保存数据按钮
-        clear_button.setOnClickListener(new View.OnClickListener() {
+        save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveData();;
+                saveData();
+                Toast.makeText(InputItemActivity.this, "录入商品成功", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -144,6 +148,7 @@ public class InputItemActivity extends Activity {
                 "_"+product_day_edit.getText().toString();
         String barcode = barcode_text.getText().toString();
 
+        Log.d(TAG, "saveData: reach151");
         //判断输入是否为空
         if (name.equals("")||costPrice.equals("")||sellingPrice.equals("")||qualityDate.equals("")||
                 quantity.equals("")||productDate.equals("")||barcode.equals("")){
@@ -159,15 +164,20 @@ public class InputItemActivity extends Activity {
                 Integer.parseInt(qualityDate),Double.parseDouble(costPrice),Double.parseDouble(sellingPrice),
                 Double.parseDouble(quantity));
 
+        Log.d(TAG, "saveData: 167");
         //数据库操作
         ItemDatabase itemDatabase = new ItemDatabase(database);
         //是否已经存在
+        Log.d(TAG, "saveData: 171");
         if (itemDatabase.exitByBarcodeAndPurchaseDateAndProductDate(item)){
+            Log.d(TAG, "saveData: 173");
             //已经存在,更新
             Item itemInDatabase = itemDatabase.SearchByBarcodeAndPurchaseDateAndProductDate(item);
+            Log.d(TAG, "saveData: 176");
             item.setQuantity(itemInDatabase.getQuantity()+item.getQuantity());
             itemDatabase.updateByBarcodeAndPurchaseDateAndProductDate(item);
         }else {
+            Log.d(TAG, "saveData: 180");
             itemDatabase.insert(item);
         }
     }
