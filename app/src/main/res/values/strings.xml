@@ -33,4 +33,9 @@
     <string name="clear_button">清除</string>
     <string name="save_button">保存</string>
     <string name="function_broadcast">广播</string>
+
+    <!--售卖界面    -->
+    <string name="total_cost_hint">0.00元</string>
+    <string name="selling_item">商品出售</string>
+    <string name="pay_for">结帐</string>
 </resources>
