@@ -164,7 +164,7 @@ public class InputItemActivity extends Activity {
 
         //取得系统的当前日期
         Time time = new Time();
-        String purchaseDate = time.year+"_"+(time.month+1)+"_"+time.monthDay;
+        String purchaseDate = time.year+"-"+(time.month+1)+"-"+time.monthDay;
 
         Item item = new Item(-1,barcode,name, new Date(purchaseDate),new Date(productDate),
                 Integer.parseInt(qualityDate),Double.parseDouble(costPrice),Double.parseDouble(sellingPrice),

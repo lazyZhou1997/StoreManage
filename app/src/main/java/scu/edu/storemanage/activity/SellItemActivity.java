@@ -16,10 +16,13 @@ import android.widget.Toast;
 import com.zxing.activity.CaptureActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import scu.edu.storemanage.R;
 import scu.edu.storemanage.database.ItemDatabase;
 import scu.edu.storemanage.item.Item;
+import scu.edu.storemanage.tools.ItemAdapter;
+import scu.edu.storemanage.tools.ItemComparator;
 
 /**
  * Created by 周秦春 on 2017/4/10.
@@ -135,6 +138,12 @@ public class SellItemActivity extends Activity {
                     ItemDatabase itemDatabase = new ItemDatabase(database);
                     ArrayList<Item> items = itemDatabase.searchByBarcode(barcode);
 
+                    //将items中的Item对象按照生产日期和购买日期排序,由小到大。
+                    Collections.sort(items,new ItemComparator());
+
+                    //FIXME
+                    ItemAdapter itemAdapter = new ItemAdapter(this,R.layout.listview_item_layout,items);
+                    sell_listview.setAdapter(itemAdapter);
 
                 }
         }
