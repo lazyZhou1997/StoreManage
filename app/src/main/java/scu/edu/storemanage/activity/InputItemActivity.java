@@ -143,8 +143,8 @@ public class InputItemActivity extends Activity {
         String sellingPrice = sell_price_edit.getText().toString();
         String qualityDate = quality_date_edit.getText().toString();
         String quantity = quantity_edit.getText().toString();
-        String productDate = product_year_edit.getText().toString()+"_"+product_month_edit.getText().toString()+
-                "_"+product_day_edit.getText().toString();
+        String productDate = product_year_edit.getText().toString()+"-"+product_month_edit.getText().toString()+
+                "-"+product_day_edit.getText().toString();
         String barcode = barcode_text.getText().toString();
 
         Log.d(TAG, "saveData: reach151");
@@ -222,7 +222,6 @@ public class InputItemActivity extends Activity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 0:
                 if (resultCode == RESULT_OK) {//成功返回条形码

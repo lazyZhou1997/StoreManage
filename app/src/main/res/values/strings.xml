@@ -37,5 +37,5 @@
     <!--售卖界面    -->
     <string name="total_cost_hint">0.00元</string>
     <string name="selling_item">商品出售</string>
-    <string name="pay_for">结帐</string>
+    <string name="pay_for">结账</string>
 </resources>

@@ -32,7 +32,7 @@ public class Date {
      */
     public Date(String stDate){
         //将字符串解析
-        String[] dates = stDate.split("_");
+        String[] dates = stDate.split("-");
 
         this.year = Integer.parseInt(dates[0]);
         this.month = Integer.parseInt(dates[1]);
@@ -124,7 +124,7 @@ public class Date {
      */
     @Override
     public String toString() {
-        return "" + year + "_" + month + "_" + day;
+        return "" + year + "-" + month + "-" + day;
     }
 
     /**

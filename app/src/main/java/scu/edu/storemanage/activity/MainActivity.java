@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -13,10 +14,18 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import scu.edu.storemanage.R;
 import scu.edu.storemanage.database.MySQLiteOpenHelper;
 import scu.edu.storemanage.database.UserDatabase;
+import scu.edu.storemanage.item.Item;
 import scu.edu.storemanage.item.User;
+import scu.edu.storemanage.tools.Date;
+import scu.edu.storemanage.tools.ItemComparator;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by 周秦春on 2017/4/4.
@@ -70,6 +79,30 @@ public class MainActivity extends Activity {
             }
         });
 
+        //测试Item按照日期排序
+//        Item item = new Item(1,"1519684","zhou",new Date("2015-1-1"),new Date("2010-1-1"),12,12,12,21);
+//        ArrayList<Item> items = new ArrayList<Item>();
+//        items.add(item);
+//        item = new Item(5,"1519684","zhou",new Date("2015-1-1"),new Date("2010-2-1"),12,12,12,21);
+//        items.add(item);
+//
+//        item = new Item(6,"1519684","zhou",new Date("2015-1-1"),new Date("2011-1-1"),12,12,12,21);
+//        items.add(item);
+//        item = new Item(2,"1519684","zhou",new Date("2015-1-1"),new Date("2010-1-12"),12,12,12,21);
+//        items.add(item);
+//
+//        item = new Item(4,"1519684","zhou",new Date("2016-1-1"),new Date("2010-1-12"),12,12,12,21);
+//        items.add(item);
+//
+//        item = new Item(3,"1519684","zhou",new Date("2015-7-1"),new Date("2010-1-12"),12,12,12,21);
+//        items.add(item);
+//
+//        Collections.sort(items,new ItemComparator());
+//
+//        for (Item it:
+//                items) {
+//            Log.d(TAG, "onCreate: "+it.getID());
+//        }
 
     }
 

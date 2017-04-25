@@ -37,8 +37,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String CREATE_BOOK_ITEM = "create table Item(" +
             "ID integer primary key autoincrement," +
             "name text," +
-            "purchaseDate text," +
-            "productDate text," +
+            "purchaseDate Date," +
+            "productDate Date," +
             "qualityDate integer," +
             "costPrice real," +
             "sellingPrice real," +
@@ -54,7 +54,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     //建表语句：Order
     private static final String CREATE_BOOK_ORDER = "create table Orders(" +
             "ID integer primary key autoincrement," +
-            "purchaseDate text," +
+            "purchaseDate Date," +
             "quantity real," +
             "itemID integer," +
             "customID integer," +
