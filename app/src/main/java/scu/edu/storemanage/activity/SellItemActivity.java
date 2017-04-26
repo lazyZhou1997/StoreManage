@@ -42,7 +42,9 @@ public class SellItemActivity extends Activity {
     private Button save_button;
     private Button pay_for_button;
 
-
+    //订单中的所有商品
+    private ArrayList<Item> orderItems = new ArrayList<Item>();
+    private ItemAdapter itemAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class SellItemActivity extends Activity {
 
         //获得该用户下的数据库
         database = MainFunctionActivity.getDatabase();
-        if (database==null){
+        if (database == null) {
             Toast.makeText(this, "读取数据库失败", Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -73,7 +75,7 @@ public class SellItemActivity extends Activity {
             public void onClick(View view) {
 
                 Intent intentScanBarCode = new Intent(SellItemActivity.this, CaptureActivity.class);
-                startActivityForResult(intentScanBarCode,1);
+                startActivityForResult(intentScanBarCode, 1);
             }
         });
 
@@ -107,30 +109,31 @@ public class SellItemActivity extends Activity {
     /**
      * 初始化UI控件
      */
-    private void initUIComponent(){
+    private void initUIComponent() {
 
-        total_price_textview = (TextView)findViewById(R.id.total_price_textView);
-        sell_listview = (ListView)findViewById(R.id.sell_layout_listView);
-        return_button = (ImageButton)findViewById(R.id.return_button_in_sell_layout);
-        scan_button = (ImageButton)findViewById(R.id.scan_button_in_sell_layout);
-        clear_button = (Button)findViewById(R.id.clear_button_in_sell);
-        save_button = (Button)findViewById(R.id.save_button_in_sell);
-        pay_for_button = (Button)findViewById(R.id.pay_for_button_in_sell);
+        total_price_textview = (TextView) findViewById(R.id.total_price_textView);
+        sell_listview = (ListView) findViewById(R.id.sell_layout_listView);
+        return_button = (ImageButton) findViewById(R.id.return_button_in_sell_layout);
+        scan_button = (ImageButton) findViewById(R.id.scan_button_in_sell_layout);
+        clear_button = (Button) findViewById(R.id.clear_button_in_sell);
+        save_button = (Button) findViewById(R.id.save_button_in_sell);
+        pay_for_button = (Button) findViewById(R.id.pay_for_button_in_sell);
 
     }
 
     /**
      * 监听扫描条形码之后的返回事件
+     *
      * @param requestCode 请求码
-     * @param resultCode 返回码
-     * @param data Intent数据
+     * @param resultCode  返回码
+     * @param data        Intent数据
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        switch (requestCode){
+        switch (requestCode) {
             case 1:
-                if (resultCode==RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     //获得返回的条形码
                     String barcode = data.getExtras().getString("result");
 
@@ -138,13 +141,37 @@ public class SellItemActivity extends Activity {
                     ItemDatabase itemDatabase = new ItemDatabase(database);
                     ArrayList<Item> items = itemDatabase.searchByBarcode(barcode);
 
+                    //判断数据库中有无此商品
+                    if (null == items) {
+                        Toast.makeText(this, "暂时并没有商品", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     //将items中的Item对象按照生产日期和购买日期排序,由小到大。
-                    Collections.sort(items,new ItemComparator());
+                    Collections.sort(items, new ItemComparator());
+                    //将最早生产的商品添加入订单，判断是否已经添加，如果已经添加，则把商品数量+1.
+                    int index = -1;//存在商品在订单中的索引
+                    Item item;//存在的商品
+                    if ((index = orderItems.indexOf(items.get(0))) != -1) {//已经存在
+                        item = orderItems.remove(index);//获取存在的商品。
+                        item.setQuantity(item.getQuantity()+1);//将商品的数量+1
+                        orderItems.add(item);//将商品放入订单中
+                    }else {//不存在
+                        orderItems.add(items.get(0));//不存在则直接把生产日期最早的放入其中
+                    }
 
-                    //FIXME
-                    ItemAdapter itemAdapter = new ItemAdapter(this,R.layout.listview_item_layout,items);
-                    sell_listview.setAdapter(itemAdapter);
 
+                    //ListView监听
+                    if(itemAdapter==null){
+                        itemAdapter = new ItemAdapter(this, R.layout.listview_item_layout, orderItems);
+                        sell_listview.setAdapter(itemAdapter);
+                    }else {
+                        itemAdapter.notifyDataSetChanged();
+                    }
+
+
+                } else if (resultCode == RESULT_CANCELED) {
+                    Toast.makeText(this, "扫描条码失败", Toast.LENGTH_SHORT).show();
                 }
         }
 
