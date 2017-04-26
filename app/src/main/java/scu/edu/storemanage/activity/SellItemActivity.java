@@ -1,6 +1,8 @@
 package scu.edu.storemanage.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -32,9 +34,11 @@ public class SellItemActivity extends Activity {
 
     //该用户下的数据库
     private SQLiteDatabase database;
+    //商品数据
+    private ItemDatabase itemDatabase;
 
     //UI
-    private TextView total_price_textview;
+    private static TextView total_price_textview;
     private ListView sell_listview;
     private ImageButton return_button;
     private ImageButton scan_button;
@@ -46,6 +50,7 @@ public class SellItemActivity extends Activity {
     private ArrayList<Item> orderItems = new ArrayList<Item>();
     private ItemAdapter itemAdapter;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,17 +60,24 @@ public class SellItemActivity extends Activity {
 
         //获得该用户下的数据库
         database = MainFunctionActivity.getDatabase();
+        //获得商品信息
+        itemDatabase = new ItemDatabase(database);
+
         if (database == null) {
             Toast.makeText(this, "读取数据库失败", Toast.LENGTH_SHORT).show();
             finish();
         }
+
+        //ListView
+        itemAdapter = new ItemAdapter(this, R.layout.listview_item_layout, orderItems);
+        sell_listview.setAdapter(itemAdapter);
 
         //监听
         //监听返回按钮
         return_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                finish();
             }
         });
 
@@ -91,7 +103,7 @@ public class SellItemActivity extends Activity {
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                saveOrders();
             }
         });
 
@@ -99,10 +111,38 @@ public class SellItemActivity extends Activity {
         clear_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SellItemActivity.this);
+                builder.setTitle("清空");
+                builder.setMessage("清空所有已经输入的内容！");
+                builder.setCancelable(true);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //清空订单中的所有数据
+                        orderItems.clear();
+                        //通知已经清空所有订单
+                        itemAdapter.notifyDataSetChanged();
 
+                        //显示总价：
+                        double totalPrice = 0;
+                        for (Item it :
+                                orderItems) {
+                            totalPrice += it.countTotalSellingPrice();
+                        }
+                        total_price_textview.setText(totalPrice + " " + "元");
+                    }
+                });
+
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(SellItemActivity.this, "取消清空", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.show();
             }
         });
-
     }
 
 
@@ -138,7 +178,6 @@ public class SellItemActivity extends Activity {
                     String barcode = data.getExtras().getString("result");
 
                     //从数据库中查找有相同条形码的商品信息
-                    ItemDatabase itemDatabase = new ItemDatabase(database);
                     ArrayList<Item> items = itemDatabase.searchByBarcode(barcode);
 
                     //判断数据库中有无此商品
@@ -149,25 +188,29 @@ public class SellItemActivity extends Activity {
 
                     //将items中的Item对象按照生产日期和购买日期排序,由小到大。
                     Collections.sort(items, new ItemComparator());
+                    Collections.reverse(items);
+
                     //将最早生产的商品添加入订单，判断是否已经添加，如果已经添加，则把商品数量+1.
                     int index = -1;//存在商品在订单中的索引
                     Item item;//存在的商品
                     if ((index = orderItems.indexOf(items.get(0))) != -1) {//已经存在
                         item = orderItems.remove(index);//获取存在的商品。
-                        item.setQuantity(item.getQuantity()+1);//将商品的数量+1
+                        item.setQuantity(item.getQuantity() + 1);//将商品的数量+1
                         orderItems.add(item);//将商品放入订单中
-                    }else {//不存在
+                    } else {//不存在
                         orderItems.add(items.get(0));//不存在则直接把生产日期最早的放入其中
                     }
 
-
-                    //ListView监听
-                    if(itemAdapter==null){
-                        itemAdapter = new ItemAdapter(this, R.layout.listview_item_layout, orderItems);
-                        sell_listview.setAdapter(itemAdapter);
-                    }else {
-                        itemAdapter.notifyDataSetChanged();
+                    //显示总价：
+                    double totalPrice = 0;
+                    for (Item it :
+                            orderItems) {
+                        totalPrice += it.countTotalSellingPrice();
                     }
+                    total_price_textview.setText(totalPrice + " " + "元");
+
+
+                    itemAdapter.notifyDataSetChanged();
 
 
                 } else if (resultCode == RESULT_CANCELED) {
@@ -176,5 +219,68 @@ public class SellItemActivity extends Activity {
         }
 
         return;
+    }
+
+    /**
+     * 获得显示总价的TextView
+     *
+     * @return TextView
+     */
+    public static TextView getTotal_price_textview() {
+
+        return total_price_textview;
+    }
+
+    /**
+     * 保存出售订单
+     */
+    public void saveOrders() {
+        //检查是否都有库存
+        double quantity;
+        for (Item i :
+                orderItems) {
+            quantity = itemDatabase.countTotalQuantitySameBarcode(i.getBarCode());
+            if (i.getQuantity() > quantity) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("商品不足");
+                builder.setMessage(i.getName()+"    库存只有"+quantity);
+                builder.setCancelable(false);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(SellItemActivity.this, "保存(结账)失败", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                });
+
+                builder.show();
+            }
+        }
+
+        //FIXME
+    }
+
+    @Override
+    public void finish() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(SellItemActivity.this);
+        builder.setTitle("提示");
+        builder.setMessage("如果没有保存，退出后订单将会消失！");
+        builder.setCancelable(true);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                SellItemActivity.super.finish();
+            }
+        });
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(SellItemActivity.this, "取消退出", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.show();
+
     }
 }

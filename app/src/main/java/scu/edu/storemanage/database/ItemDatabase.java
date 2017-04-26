@@ -20,26 +20,26 @@ public class ItemDatabase {
 
     /**
      * 构造函数，传输用户Data数据库
+     *
      * @param db User数据库
      */
-    public ItemDatabase(SQLiteDatabase db){
+    public ItemDatabase(SQLiteDatabase db) {
         database = db;
     }
 
     /**
      * 传入条形码，返回Item[]对象数组，失败返回null
-     * @param barCode 帐号
      *
+     * @param barCode 帐号
      * @return Item对象数组
      */
-    public ArrayList<Item> searchByBarcode(String barCode){
+    public ArrayList<Item> searchByBarcode(String barCode) {
         //查询数据
-        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE,null,"barCode = ?",new String[]{barCode},null,
-                null,null);
+        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE, null, "barCode = ?", new String[]{barCode}, null,
+                null, null);
 
         //组装数据
-        if (cursor==null)
-        {
+        if (cursor == null) {
             return null;
         }
 
@@ -57,7 +57,7 @@ public class ItemDatabase {
         //返回数据时使用
         ArrayList<Item> items = new ArrayList<Item>();
 
-        if (cursor.moveToFirst()){//指针移动到第一行进行循环
+        if (cursor.moveToFirst()) {//指针移动到第一行进行循环
 
             //遍历cursor对象
             do {
@@ -74,8 +74,8 @@ public class ItemDatabase {
                 //组装User并返回
                 items.add(new Item(ID, barcode, itemName, purchaseDate, productDate, qualityDate, costPrice,
                         sellingPrice, quantity));
-            }while (cursor.moveToNext());
-        }else {
+            } while (cursor.moveToNext());
+        } else {
             return null;
         }
 
@@ -84,18 +84,17 @@ public class ItemDatabase {
 
     /**
      * 传入商品名称，返回Item[]对象数组，失败返回null
-     * @param itemNames 商品名称
      *
+     * @param itemNames 商品名称
      * @return Item对象数组
      */
-    public ArrayList<Item> searchByItemNamw(String itemNames){
+    public ArrayList<Item> searchByItemNamw(String itemNames) {
         //查询数据
-        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE,null,"name = ?",new String[]{itemNames},null,
-                null,null);
+        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE, null, "name = ?", new String[]{itemNames}, null,
+                null, null);
 
         //组装数据
-        if (cursor==null)
-        {
+        if (cursor == null) {
             return null;
         }
 
@@ -113,7 +112,7 @@ public class ItemDatabase {
         //返回数据时使用
         ArrayList<Item> items = new ArrayList<Item>();
 
-        if (cursor.moveToFirst()){//指针移动到第一行进行循环
+        if (cursor.moveToFirst()) {//指针移动到第一行进行循环
 
             //遍历cursor对象
             do {
@@ -130,8 +129,8 @@ public class ItemDatabase {
                 //组装User并返回
                 items.add(new Item(ID, barcode, itemName, purchaseDate, productDate, qualityDate, costPrice,
                         sellingPrice, quantity));
-            }while (cursor.moveToNext());
-        }else {
+            } while (cursor.moveToNext());
+        } else {
             return null;
         }
 
@@ -140,9 +139,10 @@ public class ItemDatabase {
 
     /**
      * 将该商品插入数据库中
+     *
      * @param item
      */
-    public void insert(Item item){
+    public void insert(Item item) {
 
         //组装数据
         ContentValues values = new ContentValues();
@@ -194,27 +194,27 @@ public class ItemDatabase {
         Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE, null, "purchaseDate = ? and productDate = ? and barCode = ?",
                 new String[]{item.getPurchaseDate().toString(), item.getProductDate().toString(), item.getBarCode()}, null,
                 null, null);
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
     /**
      * 根据传入item商品的条形码，购买日期，生产日期获得商品
+     *
      * @param item 商品对象
      * @return 返回商品对象
      */
-    public Item SearchByBarcodeAndPurchaseDateAndProductDate(Item item){
+    public Item SearchByBarcodeAndPurchaseDateAndProductDate(Item item) {
         //查询数据
-        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE,null,"purchaseDate = ? and productDate = ? and barCode = ?",
-                new String[]{item.getPurchaseDate().toString(), item.getProductDate().toString(), item.getBarCode()},null,
-                null,null);
+        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE, null, "purchaseDate = ? and productDate = ? and barCode = ?",
+                new String[]{item.getPurchaseDate().toString(), item.getProductDate().toString(), item.getBarCode()}, null,
+                null, null);
 
         //组装数据
-        if (cursor==null)
-        {
+        if (cursor == null) {
             return null;
         }
 
@@ -230,7 +230,7 @@ public class ItemDatabase {
         String barcode;
 
 
-        if (cursor.moveToFirst()){//指针移动到第一行进行循环
+        if (cursor.moveToFirst()) {//指针移动到第一行进行循环
 
             //组装数据
             ID = cursor.getInt(cursor.getColumnIndex("ID"));
@@ -247,10 +247,29 @@ public class ItemDatabase {
             return new Item(ID, barcode, itemName, purchaseDate, productDate, qualityDate, costPrice,
                     sellingPrice, quantity);
 
-        }else {
+        } else {
             return null;
         }
 
+    }
+
+    /**
+     * 返回具有相同条形码的商品的总数量
+     *
+     * @param barcode
+     * @return 商品总数量
+     */
+    public double countTotalQuantitySameBarcode(String barcode) {
+
+        ArrayList<Item> items = searchByBarcode(barcode);
+
+        double quantity = 0;
+        for (Item i :
+                items) {
+            quantity += i.getQuantity();
+        }
+
+        return  quantity;
     }
 
 }

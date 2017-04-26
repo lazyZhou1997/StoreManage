@@ -243,4 +243,12 @@ public class Item {
 
         return costPrice*quantity;
     }
+
+    /**
+     * 计算商品的总售价
+     * @return 总售价
+     */
+    public double countTotalSellingPrice(){
+        return  sellingPrice*quantity;
+    }
 }
