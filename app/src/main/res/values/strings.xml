@@ -38,4 +38,8 @@
     <string name="total_cost_hint">0.00元</string>
     <string name="selling_item">商品出售</string>
     <string name="pay_for">结账</string>
+
+    <!--会员管理界面-->
+    <string name="member">会员管理</string>
+    <string name="add_member">增加会员</string>
 </resources>

@@ -65,7 +65,6 @@ public class MainFunctionActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent sellingIntent = new Intent(MainFunctionActivity.this,SellItemActivity.class);
-                sellingIntent.putExtra("databaseName",databaseName);
                 startActivity(sellingIntent);
             }
         });
@@ -74,8 +73,7 @@ public class MainFunctionActivity extends Activity {
         search_item_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent searchIntent = new Intent(MainFunctionActivity.this,SellItemActivity.class);
-                searchIntent.putExtra("databaseName",databaseName);
+                Intent searchIntent = new Intent(MainFunctionActivity.this,SearchItemActivity.class);
                 startActivity(searchIntent);
             }
         });
@@ -84,8 +82,7 @@ public class MainFunctionActivity extends Activity {
         analyse_data_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent analyseIntent = new Intent(MainFunctionActivity.this,SellItemActivity.class);
-                analyseIntent.putExtra("databaseName",databaseName);
+                Intent analyseIntent = new Intent(MainFunctionActivity.this,AnalyseDataActivity.class);
                 startActivity(analyseIntent);
             }
         });
@@ -94,8 +91,7 @@ public class MainFunctionActivity extends Activity {
         order_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent orderIntent = new Intent(MainFunctionActivity.this,SellItemActivity.class);
-                orderIntent.putExtra("databaseName",databaseName);
+                Intent orderIntent = new Intent(MainFunctionActivity.this,OrderActivity.class);
                 startActivity(orderIntent);
             }
         });
@@ -104,8 +100,7 @@ public class MainFunctionActivity extends Activity {
         member_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent memberIntent = new Intent(MainFunctionActivity.this,SellItemActivity.class);
-                memberIntent.putExtra("databaseName",databaseName);
+                Intent memberIntent = new Intent(MainFunctionActivity.this,MemberActivity.class);
                 startActivity(memberIntent);
             }
         });

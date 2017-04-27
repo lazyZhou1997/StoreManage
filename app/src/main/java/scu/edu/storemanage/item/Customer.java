@@ -9,7 +9,7 @@ public class Customer {
     private String name;//顾客名字
     private String telNumber;//顾客电话
     private String address;//顾客地址
-    private long integral;//顾客积分
+    private double integral;//顾客积分
 
     /**
      * 通过传入除顾客ID之外的参数来建立一个顾客对象
@@ -18,7 +18,7 @@ public class Customer {
      * @param address //顾客地址
      * @param integral //顾客积分
      */
-    public Customer(String name,String telNumber,String address,long integral){
+    public Customer(String name,String telNumber,String address,double integral){
 
         this.name = name;
         this.telNumber = telNumber;
@@ -103,7 +103,7 @@ public class Customer {
      *
      * @return 客户的积分
      */
-    public long getIntegral() {
+    public double getIntegral() {
         return integral;
     }
 
@@ -112,7 +112,7 @@ public class Customer {
      *
      * @param integral 客户的积分
      */
-    public void setIntegral(long integral) {
+    public void setIntegral(double integral) {
         this.integral = integral;
     }
 
