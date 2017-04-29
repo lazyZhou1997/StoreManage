@@ -5,21 +5,23 @@ package scu.edu.storemanage.item;
  */
 
 public class Customer {
-    private String ID;//顾客ID
+    private int ID;//顾客ID
     private String name;//顾客名字
     private String telNumber;//顾客电话
     private String address;//顾客地址
     private double integral;//顾客积分
 
     /**
-     * 通过传入除顾客ID之外的参数来建立一个顾客对象
-     * @param name 顾客名字
+     * 通过传入顾客的参数来建立一个顾客对象
+     *
+     * @param name      顾客名字
      * @param telNumber 顾客电话号码
-     * @param address //顾客地址
-     * @param integral //顾客积分
+     * @param address   //顾客地址
+     * @param integral  //顾客积分
      */
-    public Customer(String name,String telNumber,String address,double integral){
+    public Customer(int ID, String name, String telNumber, String address, double integral) {
 
+        this.ID = ID;
         this.name = name;
         this.telNumber = telNumber;
         this.address = address;
@@ -31,7 +33,7 @@ public class Customer {
      *
      * @return 客户ID
      */
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
@@ -40,7 +42,7 @@ public class Customer {
      *
      * @param ID 客户ID
      */
-    public void setID(String ID) {
+    public void setID(int ID) {
         this.ID = ID;
     }
 
@@ -118,6 +120,7 @@ public class Customer {
 
     /**
      * 判断两个客户是否相同，电话号码相同就相同
+     *
      * @param obj
      * @return
      */
@@ -129,8 +132,8 @@ public class Customer {
             return false;
         }
 
-        //判断电话号码是否相同，相同即返回true
-        if (((Customer) obj).getTelNumber().equals(telNumber)){
+        //判断姓名是否相同，相同即返回true
+        if (((Customer) obj).getName().equals(name)) {
             return true;
         }
 

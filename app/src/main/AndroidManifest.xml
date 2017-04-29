@@ -60,6 +60,14 @@
         <activity android:name=".activity.MemberActivity">
         </activity>
 
+        <!--增加会员界面-->
+        <activity android:name=".activity.AddMemberActivity">
+        </activity>
+
+        <!--修改会员信息界面-->
+        <activity android:name=".activity.ChangeMemberInfoActivity">
+        </activity>
+
     </application>
 
 </manifest>

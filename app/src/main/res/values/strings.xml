@@ -42,4 +42,13 @@
     <!--会员管理界面-->
     <string name="member">会员管理</string>
     <string name="add_member">增加会员</string>
+
+    <!--增加会员界面-->
+    <string name="member_name">名字</string>
+    <string name="address">地址</string>
+
+    <!--修改会员信息界面-->
+    <string name="change_member">修改信息</string>
+    <string name="change">修改</string>
+    <string name="integral">积分</string>
 </resources>

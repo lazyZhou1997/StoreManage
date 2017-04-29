@@ -16,7 +16,7 @@ import scu.edu.storemanage.R;
 import scu.edu.storemanage.item.Customer;
 
 /**
- * Created by asus on 2017/4/27.
+ * Created by 周秦春 on 2017/4/27.
  */
 
 public class MemberAdapter extends ArrayAdapter<Customer> {
@@ -51,10 +51,9 @@ public class MemberAdapter extends ArrayAdapter<Customer> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.member_name.setText("周秦春");
-        viewHolder.member_integral.setText("积分： 10090");
-
-        //FIXME
+        //显示信息
+        viewHolder.member_name.setText(customer.getName());
+        viewHolder.member_integral.setText("  积分 "+customer.getIntegral());
 
         return convertView;
     }

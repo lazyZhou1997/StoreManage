@@ -21,7 +21,7 @@ public class ItemDatabase {
     /**
      * 构造函数，传输用户Data数据库
      *
-     * @param db User数据库
+     * @param db Data数据库
      */
     public ItemDatabase(SQLiteDatabase db) {
         database = db;
@@ -88,7 +88,7 @@ public class ItemDatabase {
      * @param itemNames 商品名称
      * @return Item对象数组
      */
-    public ArrayList<Item> searchByItemNamw(String itemNames) {
+    public ArrayList<Item> searchByItemName(String itemNames) {
         //查询数据
         Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE, null, "name = ?", new String[]{itemNames}, null,
                 null, null);
@@ -98,21 +98,22 @@ public class ItemDatabase {
             return null;
         }
 
-        //Item属性定义
-        int ID;
-        String itemName;
-        Date purchaseDate;
-        Date productDate;
-        int qualityDate;
-        double costPrice;
-        double sellingPrice;
-        double quantity;
-        String barcode;
-
-        //返回数据时使用
-        ArrayList<Item> items = new ArrayList<Item>();
 
         if (cursor.moveToFirst()) {//指针移动到第一行进行循环
+
+            //Item属性定义
+            int ID;
+            String itemName;
+            Date purchaseDate;
+            Date productDate;
+            int qualityDate;
+            double costPrice;
+            double sellingPrice;
+            double quantity;
+            String barcode;
+
+            //返回数据时使用
+            ArrayList<Item> items = new ArrayList<Item>();
 
             //遍历cursor对象
             do {
@@ -130,11 +131,11 @@ public class ItemDatabase {
                 items.add(new Item(ID, barcode, itemName, purchaseDate, productDate, qualityDate, costPrice,
                         sellingPrice, quantity));
             } while (cursor.moveToNext());
+
+            return items;
         } else {
             return null;
         }
-
-        return items;
     }
 
     /**

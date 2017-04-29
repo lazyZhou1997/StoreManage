@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/red"
             android:layout_gravity="center"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:text="@string/add_member"/>
     </LinearLayout>
 
