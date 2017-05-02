@@ -51,4 +51,7 @@
     <string name="change_member">修改信息</string>
     <string name="change">修改</string>
     <string name="integral">积分</string>
+
+    <!--选择会员界面-->
+    <string name="choose_customer">选择会员</string>
 </resources>

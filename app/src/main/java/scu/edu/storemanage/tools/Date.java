@@ -1,5 +1,7 @@
 package scu.edu.storemanage.tools;
 
+import android.text.format.Time;
+
 /**
  * Created by 周秦春 on 2017/4/4. 未测试
  */
@@ -136,5 +138,18 @@ public class Date {
     public long OverDate(Date date) {
 
         return (date.getYear() - year) * 365 + (date.getMonth() - month) + (date.getDay() - day);
+    }
+
+    /**
+     * 返回系统当前时间
+     * @return 系统当前时间
+     */
+    public static String getCurrentTime(){
+
+        //取得系统的当前日期
+        Time time = new Time();
+        String currentDate = time.year+"-"+(time.month+1)+"-"+time.monthDay;
+
+        return currentDate;
     }
 }

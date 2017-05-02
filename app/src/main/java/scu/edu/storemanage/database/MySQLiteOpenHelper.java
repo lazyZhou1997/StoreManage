@@ -58,7 +58,6 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
             "quantity real," +
             "itemID integer," +
             "customID integer," +
-            "actSellPrice real," +
             "profit real)";
 
 

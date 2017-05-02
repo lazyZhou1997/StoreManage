@@ -8,25 +8,37 @@ import android.view.Window;
 import android.widget.Toast;
 
 import scu.edu.storemanage.R;
+import scu.edu.storemanage.database.ItemDatabase;
+import scu.edu.storemanage.database.OrdersDatabase;
 
 /**
- * Created by asus on 2017/4/11.
+ * Created by 周秦春 on 2017/4/11.
  */
 
 public class OrderActivity extends Activity {
 
     //该用户下的数据库
-    private SQLiteDatabase database;
-    //该用户下的数据库名字
-    private String databaseName;
+    private static SQLiteDatabase database;
+    //商品数据
+    private ItemDatabase itemDatabase;
+    private OrdersDatabase ordersDatabase;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.order_layout);
-        //初始化数据库的名字
-        databaseName = getIntent().getStringExtra("databaseName");
-        Toast.makeText(this, "OrderActivity", Toast.LENGTH_SHORT).show();
+
+        //获得该用户下的数据库
+        database = MainFunctionActivity.getDatabase();
+        //获得商品信息
+        itemDatabase = new ItemDatabase(database);
+        ordersDatabase = new OrdersDatabase(database);
+
+        if (database == null) {
+            Toast.makeText(this, "读取数据库失败", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
     }
 }

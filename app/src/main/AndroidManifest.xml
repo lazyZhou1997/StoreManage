@@ -68,6 +68,9 @@
         <activity android:name=".activity.ChangeMemberInfoActivity">
         </activity>
 
+        <!--选择会员界面-->
+        <activity android:name=".activity.ChooseCustomerInfo">
+        </activity>
     </application>
 
 </manifest>

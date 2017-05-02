@@ -11,9 +11,8 @@ public class Order {
     private int ID;//订单ID
     private Date date;//销售日期
     private double quantity;//销售数量
-    private String itemID;//商品ID
-    private String customerID;//顾客ID
-    private double actsellPrice;//实际销售价格
+    private int itemID;//商品ID
+    private int customerID;//顾客ID
     private double profit;//此单利润
 
     /**
@@ -23,17 +22,15 @@ public class Order {
      * @param quantity
      * @param itemID
      * @param customerID
-     * @param actsellPrice
      * @param profit
      */
-    public Order(int ID, Date date, double quantity, String itemID, String customerID,
-                 double actsellPrice, double profit) {
+    public Order(int ID, Date date, double quantity, int itemID, int customerID,
+                 double profit) {
         this.ID = ID;
         this.date = date;
         this.quantity = quantity;
         this.itemID = itemID;
         this.customerID = customerID;
-        this.actsellPrice = actsellPrice;
         this.profit = profit;
     }
 
@@ -96,7 +93,7 @@ public class Order {
      *
      * @return 商品ID
      */
-    public String getItemID() {
+    public int getItemID() {
         return itemID;
     }
 
@@ -105,7 +102,7 @@ public class Order {
      *
      * @param itemID 订单的商品ID
      */
-    public void setItemID(String itemID) {
+    public void setItemID(int itemID) {
         this.itemID = itemID;
     }
 
@@ -114,7 +111,7 @@ public class Order {
      *
      * @return 顾客ID
      */
-    public String getCustomerID() {
+    public int getCustomerID() {
         return customerID;
     }
 
@@ -123,26 +120,8 @@ public class Order {
      *
      * @param customerID 顾客ID
      */
-    public void setCustomerID(String customerID) {
+    public void setCustomerID(int customerID) {
         this.customerID = customerID;
-    }
-
-    /**
-     * 获得商品的实际售卖价格
-     *
-     * @return 实际收买单价
-     */
-    public double getActsellPrice() {
-        return actsellPrice;
-    }
-
-    /**
-     * 设置订单的商品的实际售卖单价
-     *
-     * @param actsellPrice 商品的实际售卖单价
-     */
-    public void setActsellPrice(double actsellPrice) {
-        this.actsellPrice = actsellPrice;
     }
 
     /**
