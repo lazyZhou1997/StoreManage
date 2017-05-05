@@ -3,6 +3,7 @@ package scu.edu.storemanage.database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,8 @@ import scu.edu.storemanage.item.Item;
 import scu.edu.storemanage.item.Order;
 import scu.edu.storemanage.item.User;
 import scu.edu.storemanage.tools.Date;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by 周秦春 on 2017/4/27.
@@ -39,6 +42,7 @@ public class OrdersDatabase {
         //组装数据
         ContentValues values = new ContentValues();
         values.put("purchaseDate", order.getDate().toString());
+        Log.d(TAG, "insert: "+order.getDate().toString());
         values.put("quantity", order.getQuantity());
         values.put("itemID", order.getItemID());
         values.put("customID", order.getCustomerID());
@@ -88,12 +92,11 @@ public class OrdersDatabase {
                 profits = cursor.getDouble(cursor.getColumnIndex("profit"));
 
                 //组装Order并返回
-
                 orders.add(new Order(ID,date,quantity,itemID,customerID,profits));
 
-                return orders;
-
             } while (cursor.moveToNext());
+
+            return orders;
         } else {
             return null;
         }

@@ -54,4 +54,8 @@
 
     <!--选择会员界面-->
     <string name="choose_customer">选择会员</string>
+
+    <!--订单查询界面-->
+    <string name="order_search">订单查询</string>
+    <string name="screen">筛选订单</string>
 </resources>

@@ -148,6 +148,7 @@ public class Date {
 
         //取得系统的当前日期
         Time time = new Time();
+        time.setToNow();
         String currentDate = time.year+"-"+(time.month+1)+"-"+time.monthDay;
 
         return currentDate;

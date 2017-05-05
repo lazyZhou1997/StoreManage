@@ -366,7 +366,7 @@ public class SellItemActivity extends Activity {
         for (Item it :
                 orderItems) {
 
-            Log.d(TAG, "saveOrders: " + it.getName() + " 数量：" + it.getQuantity());
+
             //从数据库中获得商品
             itemsInDatabase = itemDatabase.searchByBarcode(it.getBarCode());
             //将商品按日期排序
@@ -385,14 +385,11 @@ public class SellItemActivity extends Activity {
 
                     //更新数据库中信息
                     itemDatabase.updateByBarcodeAndPurchaseDateAndProductDate(itdatabase);
-                    Log.d(TAG, "saveOrders: quantity: " + quantity + "空商品ID" + itdatabase.getID());
                 } else {
                     itdatabase.setQuantity(itdatabase.getQuantity() - quantity);
-                    quantity = 0;
 
                     //更新数据库中信息
                     itemDatabase.updateByBarcodeAndPurchaseDateAndProductDate(itdatabase);
-                    Log.d(TAG, "saveOrders: quantity " + quantity + "商品ID" + itdatabase.getID() + " 商品数量:" + itdatabase.getQuantity());
                     break;
                 }
             }

@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.zxing.activity.CaptureActivity;
 
+import java.util.ArrayList;
+
 import scu.edu.storemanage.R;
 import scu.edu.storemanage.database.ItemDatabase;
 import scu.edu.storemanage.database.MySQLiteOpenHelper;
@@ -34,6 +36,9 @@ public class InputItemActivity extends Activity {
     private static final String TAG = "StoreManage";
     //该用户下的数据库
     private SQLiteDatabase database;
+
+    //商品数据库
+    private ItemDatabase itemDatabase;
 
     //UI
     private ImageButton return_button;//返回按钮
@@ -65,6 +70,8 @@ public class InputItemActivity extends Activity {
             Toast.makeText(this, "读取数据库失败", Toast.LENGTH_SHORT).show();
             finish();
         }
+        //获得商品数据库
+        itemDatabase = new ItemDatabase(database);
 
         //直接跳转到扫描条形码的位置
         Intent barcodeIntent = new Intent(this, CaptureActivity.class);
@@ -170,8 +177,7 @@ public class InputItemActivity extends Activity {
                 Double.parseDouble(quantity));
 
         Log.d(TAG, "saveData: 167");
-        //数据库操作
-        ItemDatabase itemDatabase = new ItemDatabase(database);
+
         //是否已经存在
         Log.d(TAG, "saveData: 171");
         if (itemDatabase.exitByBarcodeAndPurchaseDateAndProductDate(item)){
@@ -224,8 +230,13 @@ public class InputItemActivity extends Activity {
         switch (requestCode) {
             case 0:
                 if (resultCode == RESULT_OK) {//成功返回条形码
+                    //获得条形码
                     String barcode = data.getExtras().getString("result");
                     barcode_text.setText(barcode);
+
+                    //判断数据库中是否曾经拥有该商品
+                    ArrayList<Item> items = itemDatabase.searchByBarcode(barcode);
+
                 } else {
                     barcode_text.setText("条码出错");
                 }
