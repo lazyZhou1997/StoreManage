@@ -28,6 +28,8 @@ import android.view.SurfaceHolder;
 
 import java.io.IOException;
 
+import scu.edu.storemanage.tools.DensityUtil;
+
 /**
  * This object wraps the Camera service object and expects to be the only one talking to it. The
  * implementation encapsulates the steps needed to take preview-sized images, which are used for
@@ -36,16 +38,14 @@ import java.io.IOException;
  */
 public final class CameraManager {
 
+  static final int SDK_INT; // Later we can use Build.VERSION.SDK_INT
   private static final String TAG = CameraManager.class.getSimpleName();
-
-  private static final int MIN_FRAME_WIDTH = 240;
-  private static final int MIN_FRAME_HEIGHT = 240;
-  private static final int MAX_FRAME_WIDTH = 480;
-  private static final int MAX_FRAME_HEIGHT = 360;
-
+  private static int MIN_FRAME_WIDTH = 240;
+  private static int MIN_FRAME_HEIGHT = 240;
+  private static int MAX_FRAME_WIDTH = 480;
+  private static int MAX_FRAME_HEIGHT = 360;
   private static CameraManager cameraManager;
 
-  static final int SDK_INT; // Later we can use Build.VERSION.SDK_INT
   static {
     int sdkInt;
     try {
@@ -59,11 +59,6 @@ public final class CameraManager {
 
   private final Context context;
   private final CameraConfigurationManager configManager;
-  private Camera camera;
-  private Rect framingRect;
-  private Rect framingRectInPreview;
-  private boolean initialized;
-  private boolean previewing;
   private final boolean useOneShotPreviewCallback;
   /**
    * Preview frames are delivered here, which we pass on to the registered handler. Make sure to
@@ -72,26 +67,11 @@ public final class CameraManager {
   private final PreviewCallback previewCallback;
   /** Autofocus callbacks arrive here, and are dispatched to the Handler which requested them. */
   private final AutoFocusCallback autoFocusCallback;
-
-  /**
-   * Initializes this static object with the Context of the calling Activity.
-   *
-   * @param context The Activity which wants to use the camera.
-   */
-  public static void init(Context context) {
-    if (cameraManager == null) {
-      cameraManager = new CameraManager(context);
-    }
-  }
-
-  /**
-   * Gets the CameraManager singleton instance.
-   *
-   * @return A reference to the CameraManager singleton.
-   */
-  public static CameraManager get() {
-    return cameraManager;
-  }
+  private Camera camera;
+  private Rect framingRect;
+  private Rect framingRectInPreview;
+  private boolean initialized;
+  private boolean previewing;
 
   private CameraManager(Context context) {
 
@@ -107,6 +87,30 @@ public final class CameraManager {
 
     previewCallback = new PreviewCallback(configManager, useOneShotPreviewCallback);
     autoFocusCallback = new AutoFocusCallback();
+  }
+
+  /**
+   * Initializes this static object with the Context of the calling Activity.
+   *
+   * @param context The Activity which wants to use the camera.
+   */
+  public static void init(Context context) {
+    if (cameraManager == null) {
+      cameraManager = new CameraManager(context);
+      MIN_FRAME_WIDTH = DensityUtil.dip2px(context, 240);
+      MIN_FRAME_HEIGHT = DensityUtil.dip2px(context, 240);
+      MAX_FRAME_WIDTH = DensityUtil.dip2px(context, 480);
+      MAX_FRAME_HEIGHT = DensityUtil.dip2px(context, 360);
+    }
+  }
+
+  /**
+   * Gets the CameraManager singleton instance.
+   *
+   * @return A reference to the CameraManager singleton.
+   */
+  public static CameraManager get() {
+    return cameraManager;
   }
 
   /**
