@@ -99,8 +99,8 @@ public final class CameraManager {
       cameraManager = new CameraManager(context);
       MIN_FRAME_WIDTH = DensityUtil.dip2px(context, 240);
       MIN_FRAME_HEIGHT = DensityUtil.dip2px(context, 240);
-      MAX_FRAME_WIDTH = DensityUtil.dip2px(context, 480);
-      MAX_FRAME_HEIGHT = DensityUtil.dip2px(context, 360);
+      MAX_FRAME_WIDTH = DensityUtil.dip2px(context, 240);
+      MAX_FRAME_HEIGHT = DensityUtil.dip2px(context, 240);
     }
   }
 
