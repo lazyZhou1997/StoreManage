@@ -71,6 +71,10 @@
         <!--选择会员界面-->
         <activity android:name=".activity.ChooseCustomerInfo">
         </activity>
+
+        <!--订单信息界面-->
+        <activity android:name=".activity.OrderInfoActivity">
+        </activity>
     </application>
 
 </manifest>

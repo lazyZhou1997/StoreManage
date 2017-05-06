@@ -1,6 +1,7 @@
 package scu.edu.storemanage.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -92,7 +93,9 @@ public class OrderActivity extends Activity {
         order_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent intent = new Intent(OrderActivity.this,OrderInfoActivity.class);
+                startActivity(intent);
+                //FIXME
             }
         });
 
