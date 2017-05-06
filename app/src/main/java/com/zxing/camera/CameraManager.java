@@ -40,10 +40,10 @@ public final class CameraManager {
 
   static final int SDK_INT; // Later we can use Build.VERSION.SDK_INT
   private static final String TAG = CameraManager.class.getSimpleName();
-  private static int MIN_FRAME_WIDTH = 240;
-  private static int MIN_FRAME_HEIGHT = 240;
-  private static int MAX_FRAME_WIDTH = 480;
-  private static int MAX_FRAME_HEIGHT = 360;
+  private static int MIN_FRAME_WIDTH;
+  private static int MIN_FRAME_HEIGHT;
+  private static int MAX_FRAME_WIDTH;
+  private static int MAX_FRAME_HEIGHT;
   private static CameraManager cameraManager;
 
   static {
