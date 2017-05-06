@@ -94,8 +94,9 @@ public class OrderActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(OrderActivity.this,OrderInfoActivity.class);
+                //传入order对象
+                OrderInfoActivity.setOrder(allOrders.get(position));
                 startActivity(intent);
-                //FIXME
             }
         });
 
