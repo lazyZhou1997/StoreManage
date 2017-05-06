@@ -185,6 +185,28 @@ public class ItemDatabase {
     }
 
     /**
+     * 根据传入的item的商品的ID更新数据
+     * @param item
+     */
+    public void updateByID(Item item) {
+        //组装数据
+        ContentValues values = new ContentValues();
+        values.put("name", item.getName());
+        values.put("purchaseDate", item.getPurchaseDate().toString());
+        values.put("productDate", item.getProductDate().toString());
+        values.put("qualityDate", item.getQualityDate());
+        values.put("costPrice", item.getCostPrice());
+        values.put("sellingPrice", item.getSellingPrice());
+        values.put("quantity", item.getQuantity());
+        values.put("barCode", item.getBarCode());
+        //更新数据
+        database.update(MySQLiteOpenHelper.ITEM_TABLE, values, " ID = ? ", new String[]{item.getID()+""});
+
+        return;
+
+    }
+
+    /**
      * 根据传入item商品的条形码，购买日期，生产日期判断该商品在数据库中是否存在
      *
      * @param item 商品对象

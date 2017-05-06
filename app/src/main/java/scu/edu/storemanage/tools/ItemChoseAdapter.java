@@ -1,7 +1,6 @@
 package scu.edu.storemanage.tools;
 
 import android.content.Context;
-import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,19 +13,20 @@ import android.widget.TextView;
 import java.util.List;
 
 import scu.edu.storemanage.R;
+import scu.edu.storemanage.item.Item;
 import scu.edu.storemanage.item.Order;
 
 /**
- * Created by 周秦春 on 2017/5/2.
+ * Created by 周秦春 on 2017/5/6.
  */
 
-public class OrderAdapter extends ArrayAdapter {
+public class ItemChoseAdapter extends ArrayAdapter {
 
     private Context context;
     private int resource;
     private LayoutInflater layoutInflater;
 
-    public OrderAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects) {
+    public ItemChoseAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
@@ -37,7 +37,7 @@ public class OrderAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //获得订单对象
-        Order order = (Order) getItem(position);
+        Item item = (Item) getItem(position);
 
         ViewHolder viewHolder;
         if (null == convertView) {
@@ -45,7 +45,7 @@ public class OrderAdapter extends ArrayAdapter {
             viewHolder = new ViewHolder();
 
             viewHolder.order_date = (TextView) convertView.findViewById(R.id.member_name_text_in_member_listview);
-            viewHolder.price = (TextView) convertView.findViewById(R.id.member_integral_text_in_member_listview);
+            viewHolder.item_name = (TextView) convertView.findViewById(R.id.member_integral_text_in_member_listview);
 
             convertView.setTag(viewHolder);
         } else {
@@ -53,8 +53,8 @@ public class OrderAdapter extends ArrayAdapter {
         }
 
         //显示信息
-        viewHolder.order_date.setText(order.getDate().toString());
-        viewHolder.price.setText("  获利 "+order.getProfit());
+        viewHolder.order_date.setText(item.getProductDate().toString());
+        viewHolder.item_name.setText("  商品名： "+item.getName());
 
         return convertView;
     }
@@ -64,6 +64,6 @@ public class OrderAdapter extends ArrayAdapter {
 
         TextView order_date;
 
-        TextView price;
+        TextView item_name;
     }
 }

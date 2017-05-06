@@ -75,6 +75,10 @@
         <!--订单信息界面-->
         <activity android:name=".activity.OrderInfoActivity">
         </activity>
+
+        <!--修改商品界面-->
+        <activity android:name=".activity.ItemChangeActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -65,4 +65,11 @@
     <string name="date">日期</string>
     <string name="order_quantity">数量</string>
     <string name="customer_name">顾客姓名</string>
+
+    <!--查询商品界面-->
+    <string name="search_item">查询商品</string>
+
+    <!--商品修改界面-->
+    <string name="item_change">商品修改</string>
+    <string name="name">名&#160;&#160;称</string>
 </resources>
