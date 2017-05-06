@@ -144,4 +144,39 @@ public class CustomerDatabase {
         return;
     }
 
+
+    /**
+     * 根据顾客ID查找顾客
+     * @param ID 顾客ID
+     * @return 顾客对象
+     */
+    public Customer searchByID(int ID) {
+
+        //查询数据
+        Cursor cursor = database.query(MySQLiteOpenHelper.CUSTOMER_TABLE, null, "ID = ?", new String[]{ID+""}, null,
+                null, null);
+
+        //组装数据
+        if (cursor.moveToFirst()) {
+            //组装数据
+            String telNumber;
+            String address;
+            String name;
+            double integral;
+
+            //获取数据库中数据
+            telNumber = cursor.getString(cursor.getColumnIndex("telNumber"));
+            address = cursor.getString(cursor.getColumnIndex("address"));
+            integral = cursor.getDouble(cursor.getColumnIndex("integral"));
+            name = cursor.getString(cursor.getColumnIndex("name"));
+
+            Customer customer = new Customer(ID, name, telNumber, address, integral);
+            return customer;
+
+        } else {
+            //没有查找到
+            return null;
+        }
+    }
+
 }

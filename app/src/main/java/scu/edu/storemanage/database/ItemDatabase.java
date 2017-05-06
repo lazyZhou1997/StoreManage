@@ -75,11 +75,11 @@ public class ItemDatabase {
                 items.add(new Item(ID, barcode, itemName, purchaseDate, productDate, qualityDate, costPrice,
                         sellingPrice, quantity));
             } while (cursor.moveToNext());
+            return items;
+
         } else {
             return null;
         }
-
-        return items;
     }
 
     /**
@@ -219,19 +219,19 @@ public class ItemDatabase {
             return null;
         }
 
-        //Item属性定义
-        int ID;
-        String itemName;
-        Date purchaseDate;
-        Date productDate;
-        int qualityDate;
-        double costPrice;
-        double sellingPrice;
-        double quantity;
-        String barcode;
-
 
         if (cursor.moveToFirst()) {//指针移动到第一行进行循环
+
+            //Item属性定义
+            int ID;
+            String itemName;
+            Date purchaseDate;
+            Date productDate;
+            int qualityDate;
+            double costPrice;
+            double sellingPrice;
+            double quantity;
+            String barcode;
 
             //组装数据
             ID = cursor.getInt(cursor.getColumnIndex("ID"));
@@ -271,6 +271,48 @@ public class ItemDatabase {
         }
 
         return  quantity;
+    }
+
+    /**
+     * 根据商品ID返回商品对象
+     * @param ID 商品ID
+     * @return 商品对象
+     */
+    public Item searchByItemID(int ID){
+
+        //查询数据
+        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE, null,"ID = ?", new String[]{ID+""}, null,
+                null, null);
+
+        if (cursor.moveToFirst()) {//指针移动到第一行进行循环
+
+            //Item属性定义
+            String itemName;
+            Date purchaseDate;
+            Date productDate;
+            int qualityDate;
+            double costPrice;
+            double sellingPrice;
+            double quantity;
+            String barcode;
+
+            //组装数据
+            itemName = cursor.getString(cursor.getColumnIndex("name"));
+            purchaseDate = new Date(cursor.getString(cursor.getColumnIndex("purchaseDate")));
+            productDate = new Date(cursor.getString(cursor.getColumnIndex("productDate")));
+            qualityDate = cursor.getInt(cursor.getColumnIndex("qualityDate"));
+            costPrice = cursor.getDouble(cursor.getColumnIndex("costPrice"));
+            sellingPrice = cursor.getDouble(cursor.getColumnIndex("sellingPrice"));
+            quantity = cursor.getDouble(cursor.getColumnIndex("quantity"));
+            barcode = cursor.getString(cursor.getColumnIndex("barCode"));
+
+            //组装item并返回
+            return new Item(ID, barcode, itemName, purchaseDate, productDate, qualityDate, costPrice,
+                    sellingPrice, quantity);
+
+        } else {
+            return null;
+        }
     }
 
 }

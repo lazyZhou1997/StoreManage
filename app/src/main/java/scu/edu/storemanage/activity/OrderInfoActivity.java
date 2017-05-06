@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import scu.edu.storemanage.R;
+import scu.edu.storemanage.database.CustomerDatabase;
+import scu.edu.storemanage.database.ItemDatabase;
 import scu.edu.storemanage.item.Order;
 
 /**
@@ -27,6 +29,10 @@ public class OrderInfoActivity extends Activity {
 
     //接收Order
     private static Order order;
+    //接受ItemDatabase对象
+    private static ItemDatabase itemDatabase;
+    //接受CustomerDatabase对象
+    private static CustomerDatabase customerDatabase;
 
     /**
      * 接收Order
@@ -36,6 +42,22 @@ public class OrderInfoActivity extends Activity {
         order = neworder;
     }
 
+    /**
+     * 传入CustomerDatabase对象
+     * @param newCustomerDatabase CustomerDatabase对象
+     */
+    public static void setCustomerDatabase(CustomerDatabase newCustomerDatabase){
+        customerDatabase = newCustomerDatabase;
+    }
+
+    /**
+     * 接受用户的ItemDatabase
+     * @param newItemDatabase 接收用户的Itemdatabase
+     */
+    public static void setItemDatabase(ItemDatabase newItemDatabase){
+        itemDatabase = newItemDatabase;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +65,25 @@ public class OrderInfoActivity extends Activity {
         setContentView(R.layout.order_item_layout);
         initUIComponent();//初始化UI控件
 
-        
+        ID_text.setText(order.getID()+"");
+        date_text.setText(order.getDate().toString());
+        quantity_text.setText(order.getQuantity()+"");
+        //查询商品名字
+        String item_name = itemDatabase.searchByItemID(order.getItemID()).getName();
+        item_name_text.setText(item_name);
+
+        if (order.getCustomerID()==-1){
+            customer_name_text.setText("匿名");
+        }else {
+
+            try {
+                //查询客户名称
+                String customerName = customerDatabase.searchByID(order.getCustomerID()).getName();
+                customer_name_text.setText(customerName);
+            } catch (Exception e) {
+                customer_name_text.setText("未知顾客");
+            }
+        }
 
         //监听返回事件
         return_button.setOnClickListener(new View.OnClickListener() {

@@ -15,8 +15,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import scu.edu.storemanage.R;
+import scu.edu.storemanage.database.CustomerDatabase;
 import scu.edu.storemanage.database.ItemDatabase;
 import scu.edu.storemanage.database.OrdersDatabase;
 import scu.edu.storemanage.item.Order;
@@ -35,6 +37,7 @@ public class OrderActivity extends Activity {
     //商品数据
     private ItemDatabase itemDatabase;
     private OrdersDatabase ordersDatabase;
+    private static CustomerDatabase customerDatabase;
 
     //UI
     private ImageButton return_button;
@@ -62,13 +65,8 @@ public class OrderActivity extends Activity {
 
         //获取所有订单
         allOrders = ordersDatabase.searchAllOrders();
-
-        //日志
-        for (Order order:
-             allOrders) {
-
-            Log.d(TAG, "onCreate: "+order.getDate());
-        }
+        //保证最新的订单在上面
+        Collections.reverse(allOrders);
 
         //ListView配制.
         if (allOrders!=null){
@@ -96,6 +94,10 @@ public class OrderActivity extends Activity {
                 Intent intent = new Intent(OrderActivity.this,OrderInfoActivity.class);
                 //传入order对象
                 OrderInfoActivity.setOrder(allOrders.get(position));
+                //传入ItemDatabase对象
+                OrderInfoActivity.setItemDatabase(itemDatabase);
+                //传入CustomerDatabase对象
+                OrderInfoActivity.setCustomerDatabase(new CustomerDatabase(database));
                 startActivity(intent);
             }
         });

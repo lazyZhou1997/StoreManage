@@ -236,7 +236,14 @@ public class InputItemActivity extends Activity {
 
                     //判断数据库中是否曾经拥有该商品
                     ArrayList<Item> items = itemDatabase.searchByBarcode(barcode);
-
+                   if (items!=null){
+                       //如果有该商品，则把基本先写入
+                       Item item = items.get(0);
+                       name_edit.setText(item.getName());
+                       cost_price_edit.setText(item.getCostPrice()+"");
+                       sell_price_edit.setText(item.getSellingPrice()+"");
+                       quality_date_edit.setText(item.getQualityDate()+"");
+                   }
                 } else {
                     barcode_text.setText("条码出错");
                 }
