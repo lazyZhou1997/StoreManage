@@ -13,12 +13,16 @@
         android:textSize="30sp"
         android:layout_height="match_parent" />
 
-    <TextView
+    <scu.edu.storemanage.tools.NewTextView
         android:id="@+id/member_integral_text_in_member_listview"
         android:layout_width="0dp"
         android:textSize="30sp"
         android:layout_weight="2"
         android:gravity="center_vertical"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusableInTouchMode="true"
         android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -1,6 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg">
 
+    <!--标题-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/return_button_in_addmember_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@color/transparent"
+            android:src="@mipmap/return_bt"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="80dp"
+            android:text="@string/add_member"
+            android:textColor="@color/red"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/broad_cast_in_analyse_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/function_broadcast" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="4">
+        <ImageButton
+            android:id="@+id/input_function_button_in_analyse_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/main_function_big_button"
+            android:elevation="10dp"
+            android:src="@mipmap/input"/>
+
+        <ImageButton
+            android:id="@+id/sell_function_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/main_function_big_button"
+            android:src="@mipmap/sell_item" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4">
+
+        <ImageButton
+            android:id="@+id/search_function_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/main_function_big_button"
+            android:elevation="10dp"
+            android:src="@mipmap/search" />
+
+        <ImageButton
+            android:id="@+id/analyse_function_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/main_function_big_button"
+            android:src="@mipmap/data_analyse" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.3"
+        android:background="@mipmap/button_rectangle"
+        android:weightSum="1">
+
+        <ImageButton
+            android:id="@+id/order_function_button_in_analyse_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/transparent"
+            android:src="@mipmap/order_bt"
+            />
+
+        <ImageButton
+            android:id="@+id/main_page_function_button_in_analyse_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:background="@color/transparent"
+            android:src="@mipmap/main_page_bt"
+            />
+
+        <ImageButton
+            android:id="@+id/member_function_button_in_analyse_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/transparent"
+            android:src="@mipmap/member_bt"
+            />
+
+    </RelativeLayout>
 </LinearLayout>

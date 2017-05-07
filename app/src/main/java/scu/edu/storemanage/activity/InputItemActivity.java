@@ -154,7 +154,6 @@ public class InputItemActivity extends Activity {
                 "-"+product_day_edit.getText().toString();
         String barcode = barcode_text.getText().toString();
 
-        Log.d(TAG, "saveData: reach151");
         //判断输入是否为空
         if (name.equals("")||costPrice.equals("")||sellingPrice.equals("")||qualityDate.equals("")||
                 quantity.equals("")||productDate.equals("")||barcode.equals("")){
@@ -176,21 +175,19 @@ public class InputItemActivity extends Activity {
                 Integer.parseInt(qualityDate),Double.parseDouble(costPrice),Double.parseDouble(sellingPrice),
                 Double.parseDouble(quantity));
 
-        Log.d(TAG, "saveData: 167");
 
         //是否已经存在
-        Log.d(TAG, "saveData: 171");
         if (itemDatabase.exitByBarcodeAndPurchaseDateAndProductDate(item)){
-            Log.d(TAG, "saveData: 173");
+
             //已经存在,更新
             Item itemInDatabase = itemDatabase.SearchByBarcodeAndPurchaseDateAndProductDate(item);
-            Log.d(TAG, "saveData: 176");
+
             item.setQuantity(itemInDatabase.getQuantity()+item.getQuantity());
             itemDatabase.updateByBarcodeAndPurchaseDateAndProductDate(item);
 
             Toast.makeText(this, "商品更新成功,当前数量"+item.getQuantity(), Toast.LENGTH_SHORT).show();
         }else {
-            Log.d(TAG, "saveData: 180");
+
             itemDatabase.insert(item);
 
             Toast.makeText(this, "商品录入成功", Toast.LENGTH_SHORT).show();

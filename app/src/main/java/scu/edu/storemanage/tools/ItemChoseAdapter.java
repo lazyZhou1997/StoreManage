@@ -51,10 +51,11 @@ public class ItemChoseAdapter extends ArrayAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
+        viewHolder.item_name.setSelected(true);
         //显示信息
         viewHolder.order_date.setText(item.getProductDate().toString());
         viewHolder.item_name.setText("  商品名： "+item.getName());
+
 
         return convertView;
     }
