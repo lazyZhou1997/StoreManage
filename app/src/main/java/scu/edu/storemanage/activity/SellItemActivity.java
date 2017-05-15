@@ -396,7 +396,7 @@ public class SellItemActivity extends Activity {
 
             currentdate = new Date(Date.getCurrentTime());
             //更新订单数据库中的信息
-            order = new Order(-1, currentdate, it.getQuantity(), it.getID(), customerID, it.getSellingPrice() - it.getCostPrice());
+            order = new Order(-1, currentdate, it.getQuantity(), it.getID(), customerID, (it.getSellingPrice() - it.getCostPrice())*it.getQuantity());
 
             //插入数据库
             ordersDatabase.insert(order);

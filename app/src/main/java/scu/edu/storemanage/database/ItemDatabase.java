@@ -94,10 +94,6 @@ public class ItemDatabase {
                 null, null);
 
         //组装数据
-        if (cursor == null) {
-            return null;
-        }
-
 
         if (cursor.moveToFirst()) {//指针移动到第一行进行循环
 
@@ -186,6 +182,7 @@ public class ItemDatabase {
 
     /**
      * 根据传入的item的商品的ID更新数据
+     *
      * @param item
      */
     public void updateByID(Item item) {
@@ -200,7 +197,7 @@ public class ItemDatabase {
         values.put("quantity", item.getQuantity());
         values.put("barCode", item.getBarCode());
         //更新数据
-        database.update(MySQLiteOpenHelper.ITEM_TABLE, values, " ID = ? ", new String[]{item.getID()+""});
+        database.update(MySQLiteOpenHelper.ITEM_TABLE, values, " ID = ? ", new String[]{item.getID() + ""});
 
         return;
 
@@ -292,18 +289,19 @@ public class ItemDatabase {
             quantity += i.getQuantity();
         }
 
-        return  quantity;
+        return quantity;
     }
 
     /**
      * 根据商品ID返回商品对象
+     *
      * @param ID 商品ID
      * @return 商品对象
      */
-    public Item searchByItemID(int ID){
+    public Item searchByItemID(int ID) {
 
         //查询数据
-        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE, null,"ID = ?", new String[]{ID+""}, null,
+        Cursor cursor = database.query(MySQLiteOpenHelper.ITEM_TABLE, null, "ID = ?", new String[]{ID + ""}, null,
                 null, null);
 
         if (cursor.moveToFirst()) {//指针移动到第一行进行循环
@@ -332,6 +330,50 @@ public class ItemDatabase {
             return new Item(ID, barcode, itemName, purchaseDate, productDate, qualityDate, costPrice,
                     sellingPrice, quantity);
 
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 找出数量小于5的手又商品
+     *
+     * @return
+     */
+    public ArrayList<Item> findItemConsumeOut() {
+
+        //查询数据
+        Cursor cursor = database.rawQuery("select name,sum(quantity) as total_quantity " +
+                        "from " + MySQLiteOpenHelper.ITEM_TABLE + " "+
+                        "group by name " +
+                        "having total_quantity <= 5", null);
+
+        //组装并返回数据
+        if (cursor.moveToFirst()) {//指针移动到第一行进行循环
+
+            //Item属性定义
+            String itemName;
+            double quantity;
+
+            //临时Item
+            Item item;
+            //返回数据时使用
+            ArrayList<Item> items = new ArrayList<Item>();
+
+            //遍历cursor对象
+            do {
+                itemName = cursor.getString(cursor.getColumnIndex("name"));
+                quantity = cursor.getDouble(cursor.getColumnIndex("total_quantity"));
+
+                //组装User并返回
+                item = new Item();
+                item.setName(itemName);
+                item.setQuantity(quantity);
+
+                items.add(item);
+            } while (cursor.moveToNext());
+
+            return items;
         } else {
             return null;
         }

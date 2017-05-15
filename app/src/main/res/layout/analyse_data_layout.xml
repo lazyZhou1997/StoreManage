@@ -13,7 +13,7 @@
         android:padding="10dp">
 
         <ImageButton
-            android:id="@+id/return_button_in_addmember_layout"
+            android:id="@+id/return_button_in_analyse_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="80dp"
-            android:text="@string/add_member"
+            android:text="@string/data_analyse"
             android:textColor="@color/red"
             android:textSize="30sp" />
     </RelativeLayout>
@@ -33,7 +33,7 @@
         android:id="@+id/broad_cast_in_analyse_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.7"
         android:text="@string/function_broadcast" />
 
     <LinearLayout
@@ -42,21 +42,21 @@
         android:layout_marginBottom="1dp"
         android:layout_weight="4">
         <ImageButton
-            android:id="@+id/input_function_button_in_analyse_layout"
+            android:id="@+id/profit_button_in_analyse_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/main_function_big_button"
             android:elevation="10dp"
-            android:src="@mipmap/input"/>
+            android:src="@mipmap/profit"/>
 
         <ImageButton
-            android:id="@+id/sell_function_button"
+            android:id="@+id/hot_sell_function_button_in_analyse_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/main_function_big_button"
-            android:src="@mipmap/sell_item" />
+            android:src="@mipmap/hot" />
     </LinearLayout>
 
     <LinearLayout
@@ -65,21 +65,21 @@
         android:layout_weight="4">
 
         <ImageButton
-            android:id="@+id/search_function_button"
+            android:id="@+id/advise_function_button_in_analyse_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/main_function_big_button"
             android:elevation="10dp"
-            android:src="@mipmap/search" />
+            android:src="@mipmap/advise" />
 
         <ImageButton
-            android:id="@+id/analyse_function_button"
+            android:id="@+id/overdate_function_button_in_analyse_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/main_function_big_button"
-            android:src="@mipmap/data_analyse" />
+            android:src="@mipmap/overdate" />
     </LinearLayout>
 
 

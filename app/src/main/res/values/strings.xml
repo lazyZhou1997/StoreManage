@@ -72,4 +72,7 @@
     <!--商品修改界面-->
     <string name="item_change">商品修改</string>
     <string name="name">名&#160;&#160;称</string>
+
+    <!--数据分析界面-->
+    <string name="data_analyse">数据分析</string>
 </resources>

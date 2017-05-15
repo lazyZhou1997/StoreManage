@@ -3,18 +3,27 @@ package scu.edu.storemanage.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.SpannedString;
+import android.text.TextUtils;
+import android.text.style.AbsoluteSizeSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import scu.edu.storemanage.R;
 import scu.edu.storemanage.database.MySQLiteOpenHelper;
 import scu.edu.storemanage.database.UserDatabase;
 import scu.edu.storemanage.item.User;
+import scu.edu.storemanage.tools.CodeUtils;
 
 /**
  * Created by 周秦春 on 2017/4/6.
@@ -27,7 +36,13 @@ public class SignInActivity extends Activity implements View.OnClickListener {
     private EditText password_edit;
     private EditText phonenumber_edit;
     private Button sign_in_button;
+    private ImageButton yanzheng_img_button;//验证码图片
+    private EditText yanzheng_shuru;//验证码输入框
 
+    //用于验证码
+    private String codeStr;
+    private CodeUtils codeUtils;
+    private Bitmap bitmap;
 
     /**
      * 注册界面
@@ -39,9 +54,11 @@ public class SignInActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sign_layout);
-
         initUIComponent();//拿到UI控件id
+        initView();
 
+        //初始化验证码
+        initView();
         sign_in_button.setOnClickListener(this);
 
     }
@@ -54,6 +71,10 @@ public class SignInActivity extends Activity implements View.OnClickListener {
         password_edit = (EditText) findViewById(R.id.sign_password_edit);
         phonenumber_edit = (EditText) findViewById(R.id.sign_phone_edit);
         sign_in_button = (Button) findViewById(R.id.button);
+
+        //验证码
+        yanzheng_img_button = (ImageButton)findViewById(R.id.img_yanzheng_in_sign_in_layout);
+        yanzheng_shuru = (EditText)findViewById(R.id.yanzhengma_edit_in_sign_in_layout);
     }
 
     /**
@@ -63,6 +84,31 @@ public class SignInActivity extends Activity implements View.OnClickListener {
      */
     @Override
     public void onClick(View v) {
+
+        codeStr = yanzheng_shuru.getText().toString().trim();
+        Log.e("codeStr", codeStr);
+        if (null == codeStr || TextUtils.isEmpty(codeStr)) {
+            Toast.makeText(SignInActivity.this, "请输入验证码", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //获取验证码
+        String code = codeUtils.getCode();
+
+        Log.e("code", code);
+        if (!code.equalsIgnoreCase(codeStr)) {
+            Toast.makeText(SignInActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
+
+            //修改验证码
+            codeUtils = CodeUtils.getInstance();
+            Bitmap bitmap = codeUtils.createBitmap();
+            yanzheng_img_button.setImageBitmap(bitmap);
+            return;
+        }
+
+        //修改验证码
+        codeUtils = CodeUtils.getInstance();
+        Bitmap bitmap = codeUtils.createBitmap();
+        yanzheng_img_button.setImageBitmap(bitmap);
 
         //获得用户输入
         String account = account_edit.getText().toString();
@@ -106,5 +152,27 @@ public class SignInActivity extends Activity implements View.OnClickListener {
 
         //结束
         finish();
+    }
+
+    /**
+     * 初始化图形
+     */
+    private void initView() {
+        SpannableString ss = new SpannableString("请输入验证码");//定义hint的值
+        AbsoluteSizeSpan ass = new AbsoluteSizeSpan(17,true);//设置字体大小 true表示单位是sp
+        ss.setSpan(ass, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        yanzheng_shuru.setHint(new SpannedString(ss));
+
+        codeUtils = CodeUtils.getInstance();
+        bitmap = codeUtils.createBitmap();
+        yanzheng_img_button.setImageBitmap(bitmap);
+        yanzheng_img_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                codeUtils = CodeUtils.getInstance();
+                Bitmap bitmap = codeUtils.createBitmap();
+                yanzheng_img_button.setImageBitmap(bitmap);
+            }
+        });
     }
 }

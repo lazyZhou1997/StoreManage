@@ -179,4 +179,13 @@ public class CustomerDatabase {
         }
     }
 
+
+    /**
+     * 根据顾客的ID更新顾客的积分
+     * @param customer 要更新的顾客
+     */
+    public void uodateIntegralByID(Customer customer){
+        database.execSQL("update ");
+    }
+
 }

@@ -47,6 +47,13 @@ public class Item {
     }
 
     /**
+     * 创建商品对象
+     */
+    public Item(){
+
+    }
+
+    /**
      * 获得商品ID
      * @return 商品ID
      */

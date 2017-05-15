@@ -89,13 +89,11 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         //建立用户表
         if (type.equals(USER)) {
             db.execSQL(CREATE_BOOK_USER);
-            Toast.makeText(mContext, "建表成功", Toast.LENGTH_SHORT).show();
         }else if (type.equals(DATA)){//建数据表
 
             db.execSQL(CREATE_BOOK_CUSTOMER);//建顾客表
             db.execSQL(CREATE_BOOK_ITEM);//建商品表
             db.execSQL(CREATE_BOOK_ORDER);//建订单表
-            Toast.makeText(mContext, "建表数据表成功", Toast.LENGTH_SHORT).show();
         }
 
 

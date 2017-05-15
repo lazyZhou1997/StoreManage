@@ -4,14 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.SpannedString;
+import android.text.TextUtils;
+import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,6 +29,7 @@ import scu.edu.storemanage.database.MySQLiteOpenHelper;
 import scu.edu.storemanage.database.UserDatabase;
 import scu.edu.storemanage.item.Item;
 import scu.edu.storemanage.item.User;
+import scu.edu.storemanage.tools.CodeUtils;
 import scu.edu.storemanage.tools.Date;
 import scu.edu.storemanage.tools.ItemComparator;
 
@@ -46,6 +54,7 @@ public class MainActivity extends Activity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
+
     /**
      * 启动主界面
      *
@@ -56,9 +65,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main_layout);
-
         //拿到所有控件
         initUIComponent();
+
         //记住密码和帐号的显示
         rememberAccountAndPassword();
 
@@ -221,6 +230,7 @@ public class MainActivity extends Activity {
         sign_in_button = (Button) findViewById(R.id.sign_button);
         search_password_button = (Button) findViewById(R.id.forget_button);
 
+
         return;
     }
 
@@ -241,4 +251,7 @@ public class MainActivity extends Activity {
                 }
         }
     }
+
+
+
 }

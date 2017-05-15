@@ -65,12 +65,18 @@ public class OrderActivity extends Activity {
 
         //获取所有订单
         allOrders = ordersDatabase.searchAllOrders();
+        if (allOrders == null){
+            Toast.makeText(this, "暂无订单", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
         //保证最新的订单在上面
         Collections.reverse(allOrders);
 
         //ListView配制.
-        if (allOrders!=null){
-            orderAdapter = new OrderAdapter(this,R.layout.member_listview_item_layout,allOrders);
+        if (allOrders != null) {
+            orderAdapter = new OrderAdapter(this, R.layout.member_listview_item_layout, allOrders);
             order_listview.setAdapter(orderAdapter);
         }
 
@@ -91,7 +97,7 @@ public class OrderActivity extends Activity {
         order_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(OrderActivity.this,OrderInfoActivity.class);
+                Intent intent = new Intent(OrderActivity.this, OrderInfoActivity.class);
                 //传入order对象
                 OrderInfoActivity.setOrder(allOrders.get(position));
                 //传入ItemDatabase对象
@@ -107,7 +113,7 @@ public class OrderActivity extends Activity {
     /**
      * 初始化UI控件
      */
-    private void initUIComponent(){
+    private void initUIComponent() {
         return_button = (ImageButton) findViewById(R.id.return_button_in_order_layout);
         order_listview = (ListView) findViewById(R.id.order_listview);
         screen_button = (Button) findViewById(R.id.screen_in_order_layout);

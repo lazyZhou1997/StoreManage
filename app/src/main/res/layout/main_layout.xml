@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingBottom="80dp"
+        android:paddingBottom="70dp"
         android:paddingTop="50dp"
         android:text="@string/sign_in"
         android:textColor="@color/white"
@@ -44,6 +44,7 @@
         android:textColor="@color/white"
         android:hint="@string/password"
         android:paddingLeft="15dp" />
+
 
     <!--水平布局，放入密码选取框-->
     <LinearLayout

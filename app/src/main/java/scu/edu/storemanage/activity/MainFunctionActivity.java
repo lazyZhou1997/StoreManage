@@ -27,7 +27,6 @@ public class MainFunctionActivity extends Activity {
     private ImageButton search_item_button;//查找
     private ImageButton analyse_data_button;//分析数据
     private ImageButton order_button;//订单
-    private ImageButton main_page_button;//主功能界面
     private ImageButton member_button;//会员
 
     //登录的用户信息
@@ -119,7 +118,6 @@ public class MainFunctionActivity extends Activity {
         sell_item_button = (ImageButton)findViewById(R.id.sell_function_button);
         //三个底部Button
         order_button = (ImageButton)findViewById(R.id.order_function_button);
-        main_page_button = (ImageButton)findViewById(R.id.main_page_function_button);
         member_button = (ImageButton)findViewById(R.id.member_function_button);
     }
 
