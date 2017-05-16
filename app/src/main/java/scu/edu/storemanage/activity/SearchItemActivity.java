@@ -102,7 +102,7 @@ public class SearchItemActivity extends Activity {
 
                 }
                 //尝试通过名称查找
-                ArrayList<Item> allItemsByName = itemDatabase.searchByItemName(search_info);
+                ArrayList<Item> allItemsByName = itemDatabase.searchByNameLike(search_info);
                 if (allItemsByName != null) {
                     allItems.addAll(allItemsByName);
                 }
@@ -126,6 +126,8 @@ public class SearchItemActivity extends Activity {
                             startActivity(itemIntent);
                         }
                     });
+                }else{
+                    Toast.makeText(SearchItemActivity.this, "没有查找到此商品", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -94,7 +94,6 @@ public class ItemDatabase {
                 null, null);
 
         //组装数据
-
         if (cursor.moveToFirst()) {//指针移动到第一行进行循环
 
             //Item属性定义
@@ -455,6 +454,61 @@ public class ItemDatabase {
                 return allItems;
             }
 
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 通过传入的商品名字进行模糊查找
+     * @param itemNameLike  商品名字
+     * @return
+     */
+    public ArrayList<Item> searchByNameLike(String itemNameLike){
+
+        //处理传入字符串，方便进行模糊查询
+        itemNameLike = "%"+itemNameLike+"%";
+
+        //查询
+        Cursor cursor = database.rawQuery("SELECT * " +
+                " FROM Item " +
+                " WHERE name LIKE '"+itemNameLike+"'",null);
+
+        //组装数据
+        if (cursor.moveToFirst()) {//指针移动到第一行进行循环
+
+            //Item属性定义
+            int ID;
+            String itemName;
+            Date purchaseDate;
+            Date productDate;
+            int qualityDate;
+            double costPrice;
+            double sellingPrice;
+            double quantity;
+            String barcode;
+
+            //返回数据时使用
+            ArrayList<Item> items = new ArrayList<Item>();
+
+            //遍历cursor对象
+            do {
+                ID = cursor.getInt(cursor.getColumnIndex("ID"));
+                itemName = cursor.getString(cursor.getColumnIndex("name"));
+                purchaseDate = new Date(cursor.getString(cursor.getColumnIndex("purchaseDate")));
+                productDate = new Date(cursor.getString(cursor.getColumnIndex("productDate")));
+                qualityDate = cursor.getInt(cursor.getColumnIndex("qualityDate"));
+                costPrice = cursor.getDouble(cursor.getColumnIndex("costPrice"));
+                sellingPrice = cursor.getDouble(cursor.getColumnIndex("sellingPrice"));
+                quantity = cursor.getDouble(cursor.getColumnIndex("quantity"));
+                barcode = cursor.getString(cursor.getColumnIndex("barCode"));
+
+                //组装User并返回
+                items.add(new Item(ID, barcode, itemName, purchaseDate, productDate, qualityDate, costPrice,
+                        sellingPrice, quantity));
+            } while (cursor.moveToNext());
+
+            return items;
         } else {
             return null;
         }
