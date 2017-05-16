@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/member_name_text_in_member_listview"
         android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:gravity="center"
         android:textSize="30sp"
         android:layout_height="match_parent" />

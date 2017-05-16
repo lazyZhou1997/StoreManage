@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -38,6 +40,8 @@ public class SearchItemActivity extends Activity {
     private ImageButton return_button;
     private ImageButton scan_button;
     private ListView item_list;
+    private EditText search_edit;
+    private Button search_button;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +77,59 @@ public class SearchItemActivity extends Activity {
             }
         });
 
+        //监听搜索按钮
+        search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //监听查询按钮
+                String search_info;
+                search_info = search_edit.getText().toString();
+
+                //如果输入内容为空
+                if (search_info.equals("")) {
+                    return;
+                }
+
+                //如果输入内容不为空
+                //尝试通过ID查找商品
+                final ArrayList<Item> allItems = new ArrayList<Item>();
+                int ID;
+                try{
+                    ID = Integer.parseInt(search_info);
+                    Item item = itemDatabase.searchByItemID(ID);
+                    allItems.add(item);
+                }catch (Exception e){
+
+                }
+                //尝试通过名称查找
+                ArrayList<Item> allItemsByName = itemDatabase.searchByItemName(search_info);
+                if (allItemsByName != null) {
+                    allItems.addAll(allItemsByName);
+                }
+
+                //显示查找到的信息
+                if (!allItems.isEmpty()){
+                    //信息
+                    itemChoseAdapter = new ItemChoseAdapter(SearchItemActivity.this, R.layout.member_listview_item_layout, allItems);
+                    item_list.setAdapter(itemChoseAdapter);
+
+                    //设置Item点击监听
+                    item_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            //传入Item对象
+                            ItemChangeActivity.setItem(allItems.get(position));
+                            //传入ItemDatabase对象
+                            ItemChangeActivity.setItemDatabase(itemDatabase);
+                            //启动Activity
+                            Intent itemIntent = new Intent(SearchItemActivity.this, ItemChangeActivity.class);
+                            startActivity(itemIntent);
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     /**
@@ -82,6 +139,8 @@ public class SearchItemActivity extends Activity {
         return_button = (ImageButton) findViewById(R.id.return_button_in_search_layout);
         scan_button = (ImageButton) findViewById(R.id.scan_button_in_search_layout);
         item_list = (ListView) findViewById(R.id.item_listview);
+        search_edit = (EditText) findViewById(R.id.search_edit_in_search_layout);
+        search_button = (Button) findViewById(R.id.search_button_in_search_layout);
     }
 
     @Override
@@ -97,7 +156,7 @@ public class SearchItemActivity extends Activity {
                     final ArrayList<Item> items = itemDatabase.searchByBarcode(barcode);
                     if (items != null) {
 
-                        itemChoseAdapter = new ItemChoseAdapter(this,R.layout.member_listview_item_layout,items);
+                        itemChoseAdapter = new ItemChoseAdapter(this, R.layout.member_listview_item_layout, items);
                         item_list.setAdapter(itemChoseAdapter);
 
                         //设置Item点击监听
@@ -109,7 +168,7 @@ public class SearchItemActivity extends Activity {
                                 //传入ItemDatabase对象
                                 ItemChangeActivity.setItemDatabase(itemDatabase);
                                 //启动Activity
-                                Intent itemIntent = new Intent(SearchItemActivity.this,ItemChangeActivity.class);
+                                Intent itemIntent = new Intent(SearchItemActivity.this, ItemChangeActivity.class);
                                 startActivity(itemIntent);
                             }
                         });

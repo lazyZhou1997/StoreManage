@@ -344,9 +344,9 @@ public class ItemDatabase {
 
         //查询数据
         Cursor cursor = database.rawQuery("select name,sum(quantity) as total_quantity " +
-                        "from " + MySQLiteOpenHelper.ITEM_TABLE + " "+
-                        "group by name " +
-                        "having total_quantity <= 5", null);
+                "from " + MySQLiteOpenHelper.ITEM_TABLE + " " +
+                "group by name " +
+                "having total_quantity <= 5", null);
 
         //组装并返回数据
         if (cursor.moveToFirst()) {//指针移动到第一行进行循环
@@ -374,6 +374,87 @@ public class ItemDatabase {
             } while (cursor.moveToNext());
 
             return items;
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
+     * 查找已经过期或者将要过期的商品
+     *
+     * @return 查找已经过期或者将要过期的商品的商品
+     */
+    public ArrayList<Item> searchItemOverdueSoon() {
+
+        //查找所有商品
+        Cursor cursor = database.rawQuery("SELECT *" +
+                " FROM Item", null);
+
+        //所有商品
+        ArrayList<Item> allItems = null;
+
+        if (cursor.moveToFirst()) {
+            //分配空间
+            allItems = new ArrayList<Item>();
+
+            //Item的属性
+            int ID;
+            String sProductDate;
+            int qualityDate;
+            String barCode;//商品条形码
+            String name;//商品名称
+            String sPurchaseDate;//商品买入日期
+            double costPrice;//商品进价
+            double sellingPrice;//商品售价
+            double quantity;//商品数量
+
+            //商品
+            Item item = new Item();
+
+            //日期：
+            Date productDate;
+            Date purchaseDate;
+            Date currentDate = new Date(Date.getCurrentTime());
+
+            //从产品生产到现在经过了多少天
+            long deltDay;
+
+            do {
+                sProductDate = cursor.getString(cursor.getColumnIndex("productDate"));
+                productDate = new Date(sProductDate);
+                qualityDate = cursor.getInt(cursor.getColumnIndex("qualityDate"));
+
+                //产品生产至今所经历过的时间
+                deltDay = productDate.overDate(currentDate);
+
+                //过期日期小于10天，则添加入
+                if ((qualityDate * 30 - deltDay) < 10) {
+
+                    ID = cursor.getInt(cursor.getColumnIndex("ID"));
+                    //购买日期
+                    sPurchaseDate = cursor.getString(cursor.getColumnIndex("purchaseDate"));
+                    purchaseDate = new Date(sPurchaseDate);
+
+                    barCode = cursor.getString(cursor.getColumnIndex("barCode"));
+                    name = cursor.getString(cursor.getColumnIndex("name"));
+                    costPrice = cursor.getDouble(cursor.getColumnIndex("costPrice"));
+                    sellingPrice = cursor.getDouble(cursor.getColumnIndex("sellingPrice"));
+                    quantity = cursor.getDouble(cursor.getColumnIndex("quantity"));
+
+                    item = new Item(ID, barCode, name, purchaseDate, productDate, qualityDate, costPrice, sellingPrice, quantity);
+                    allItems.add(item);
+                }
+
+            } while (cursor.moveToNext());
+
+            //如果没有过期商品，则返回null
+            if (allItems.isEmpty()) {
+                return null;
+            } else {
+                return allItems;
+            }
+
         } else {
             return null;
         }

@@ -19,12 +19,16 @@ import android.widget.Toast;
 import com.zxing.activity.CaptureActivity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import scu.edu.storemanage.R;
+import scu.edu.storemanage.database.CustomerDatabase;
 import scu.edu.storemanage.database.ItemDatabase;
 import scu.edu.storemanage.database.OrdersDatabase;
+import scu.edu.storemanage.item.Customer;
 import scu.edu.storemanage.item.Item;
 import scu.edu.storemanage.item.Order;
 import scu.edu.storemanage.tools.Date;
@@ -43,7 +47,10 @@ public class SellItemActivity extends Activity {
     private static SQLiteDatabase database;
     //商品数据
     private ItemDatabase itemDatabase;
+    //订单数据
     private OrdersDatabase ordersDatabase;
+    //顾客数据
+    private CustomerDatabase customerDatabase;
 
     //UI
     private static TextView total_price_textview;
@@ -69,9 +76,10 @@ public class SellItemActivity extends Activity {
 
         //获得该用户下的数据库
         database = MainFunctionActivity.getDatabase();
-        //获得商品信息
+        //获得数据信息
         itemDatabase = new ItemDatabase(database);
         ordersDatabase = new OrdersDatabase(database);
+        customerDatabase = new CustomerDatabase(database);
 
         if (database == null) {
             Toast.makeText(this, "读取数据库失败", Toast.LENGTH_SHORT).show();
@@ -295,6 +303,10 @@ public class SellItemActivity extends Activity {
                             orderItems) {
                         totalPrice += it.countTotalSellingPrice();
                     }
+
+                    BigDecimal bg = new BigDecimal(totalPrice);
+                    totalPrice = bg.setScale(2,BigDecimal.ROUND_UP).doubleValue();
+
                     total_price_textview.setText(totalPrice + " " + "元");
 
 
@@ -395,8 +407,35 @@ public class SellItemActivity extends Activity {
             }
 
             currentdate = new Date(Date.getCurrentTime());
+
             //更新订单数据库中的信息
-            order = new Order(-1, currentdate, it.getQuantity(), it.getID(), customerID, (it.getSellingPrice() - it.getCostPrice())*it.getQuantity());
+            //价格
+            double profit = (it.getSellingPrice() - it.getCostPrice()) * it.getQuantity();
+            BigDecimal bg = new BigDecimal(profit);
+            //订单
+            order = new Order(-1, currentdate, it.getQuantity(), it.getID(), customerID, bg.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+
+            //更新该用户的积分
+            if (customerID != -1) {
+                //获得顾客实例
+                Customer customer = customerDatabase.searchByID(customerID);
+
+                //更新顾客积分
+                double integral = customer.getIntegral() + order.getProfit();
+
+                //保留两位小数
+                if ((integral * 1000) % 10 >= 5) {
+                    integral = ((int) (integral * 100 + 1)) / 100.0;
+                } else {
+                    integral = ((int) (integral * 100)) / 100.0;
+                }
+
+                //更新积分
+                customer.setIntegral(integral);
+
+                //写回数据库
+                customerDatabase.updateIntegralByID(customer);
+            }
 
             //插入数据库
             ordersDatabase.insert(order);
@@ -407,7 +446,7 @@ public class SellItemActivity extends Activity {
     @Override
     public void finish() {
 
-        if (!orderItems.isEmpty()){
+        if (!orderItems.isEmpty()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(SellItemActivity.this);
             builder.setTitle("提示");
             builder.setMessage("如果没有保存，退出后订单将会消失！");
@@ -426,7 +465,7 @@ public class SellItemActivity extends Activity {
                 }
             });
             builder.show();
-        }else {
+        } else {
             super.finish();
         }
     }

@@ -54,7 +54,7 @@ public class ItemChoseAdapter extends ArrayAdapter {
         viewHolder.item_name.setSelected(true);
         //显示信息
         viewHolder.order_date.setText(item.getProductDate().toString());
-        viewHolder.item_name.setText("  商品名： "+item.getName());
+        viewHolder.item_name.setText("名称："+item.getName());
 
 
         return convertView;

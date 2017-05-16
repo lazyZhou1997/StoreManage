@@ -38,6 +38,31 @@
             android:src="@mipmap/sao_miao"/>
     </RelativeLayout>
 
+    <!--查询-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <EditText
+            android:id="@+id/search_edit_in_search_layout"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:hint="@string/search_edit_hint"
+            android:textColorHint="@color/white"
+            android:gravity="center"
+            android:ems="10"
+            android:layout_marginStart="10dp"/>
+        <Button
+            android:id="@+id/search_button_in_search_layout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/search"
+            android:layout_marginEnd="10dp"/>
+    </LinearLayout>
+
+    <!--显示商品的信息-->
     <ListView
         android:id="@+id/item_listview"
         android:layout_marginTop="10dp"

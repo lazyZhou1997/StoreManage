@@ -37,7 +37,6 @@ public class OrderActivity extends Activity {
     //商品数据
     private ItemDatabase itemDatabase;
     private OrdersDatabase ordersDatabase;
-    private static CustomerDatabase customerDatabase;
 
     //UI
     private ImageButton return_button;
@@ -93,7 +92,7 @@ public class OrderActivity extends Activity {
             }
         });
 
-        //监听listview点击事件
+        //监听Listview点击事件
         order_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

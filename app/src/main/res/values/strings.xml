@@ -68,6 +68,8 @@
 
     <!--查询商品界面-->
     <string name="search_item">查询商品</string>
+    <string name="search">查询</string>
+    <string name="search_edit_hint">名称、ID</string>
 
     <!--商品修改界面-->
     <string name="item_change">商品修改</string>

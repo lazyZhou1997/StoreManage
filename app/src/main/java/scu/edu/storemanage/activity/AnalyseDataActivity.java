@@ -123,6 +123,14 @@ public class AnalyseDataActivity extends Activity {
                 adviseGet();
             }
         });
+
+        //监听即将过期按钮
+        over_date_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                overDue();
+            }
+        });
     }
 
     /**
@@ -296,7 +304,7 @@ public class AnalyseDataActivity extends Activity {
         String print = "";
         for (Item item :
                 items) {
-            print += item.getName() + " 库存:" + item.getQuantity() + "\n";
+            print += "\t" + item.getName() + " 库存:" + item.getQuantity() + "\n";
         }
 
         //显示将要售完的商品
@@ -315,4 +323,52 @@ public class AnalyseDataActivity extends Activity {
 
     }
 
+    /**
+     * 即将过期的商品
+     */
+    private void overDue() {
+
+        ArrayList<Item> overDueItems = itemDatabase.searchItemOverdueSoon();
+
+        if (overDueItems == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AnalyseDataActivity.this);
+
+            builder.setTitle("过期");
+            builder.setMessage("没有商品即将或已经过期");
+            builder.setCancelable(false);
+
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+
+            builder.show();
+        } else {
+
+            //打印信息
+            String print = "";
+
+            for (Item item :
+                    overDueItems) {
+                print += "\t" + item.getName() + "ID:" + item.getID() + "\n";
+            }
+
+            //显示将要过期的商品
+            AlertDialog.Builder builder = new AlertDialog.Builder(AnalyseDataActivity.this);
+            builder.setTitle("过期");
+            builder.setMessage("以下商品即将在10天内过期：\n" + print);
+            builder.setCancelable(false);
+
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+
+            builder.show();
+        }
+
+    }
 }
+

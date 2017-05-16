@@ -135,7 +135,7 @@ public class Date {
      * @param date 多多少天
      * @return
      */
-    public long OverDate(Date date) {
+    public long overDate(Date date) {
 
         return (date.getYear() - year) * 365 + (date.getMonth() - month) + (date.getDay() - day);
     }
