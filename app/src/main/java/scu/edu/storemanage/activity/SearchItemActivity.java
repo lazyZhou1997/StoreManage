@@ -97,7 +97,11 @@ public class SearchItemActivity extends Activity {
                 try{
                     ID = Integer.parseInt(search_info);
                     Item item = itemDatabase.searchByItemID(ID);
-                    allItems.add(item);
+                    //查找到对象
+                    if (item != null) {
+
+                        allItems.add(item);
+                    }
                 }catch (Exception e){
 
                 }

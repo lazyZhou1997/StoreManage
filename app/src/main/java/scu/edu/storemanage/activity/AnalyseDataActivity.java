@@ -7,16 +7,13 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.Hashtable;
 
 import scu.edu.storemanage.R;
@@ -24,9 +21,6 @@ import scu.edu.storemanage.database.ItemDatabase;
 import scu.edu.storemanage.database.OrdersDatabase;
 import scu.edu.storemanage.item.Item;
 import scu.edu.storemanage.item.Order;
-import scu.edu.storemanage.tools.Date;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by 周秦春 on 2017/4/11.
@@ -204,7 +198,7 @@ public class AnalyseDataActivity extends Activity {
         if (orders.isEmpty()) {
             //对话框
             AlertDialog.Builder builder = new AlertDialog.Builder(AnalyseDataActivity.this);
-            builder.setTitle("利润");
+            builder.setTitle("热卖");
             builder.setMessage("本月没有销售商品！");
             builder.setCancelable(false);
 
