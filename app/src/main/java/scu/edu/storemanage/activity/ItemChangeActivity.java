@@ -148,6 +148,7 @@ public class ItemChangeActivity extends Activity {
         selling_price_edit.setText(item.getSellingPrice()+"");
         quality_date_edit.setText(item.getQualityDate()+"");
         quantity_edit.setText(item.getQuantity()+"");
+        barcode_text.setText(item.getBarCode());
 
         //解析Date
         Date date = item.getProductDate();
